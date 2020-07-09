@@ -19,6 +19,8 @@ public class GameElementLayer {
 	public GameElementLayer(){
 		pipes = new ArrayList<>();
 		
+		int x = Constant.FRAME_WIDTH - 100;
+		
 		initPipe();
 	}
 	
