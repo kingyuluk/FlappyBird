@@ -18,7 +18,7 @@ public class Bird {
 	private int x, y; // 小鸟的坐标
 
 	private BufferedImage image;
-	int index;
+	int wingState;
 
 	// 鸟的状态
 	private int state;
@@ -54,15 +54,27 @@ public class Bird {
 	public static final int SPEED_UP = 25; // 小鸟向上的速度
 	public static final double g = 9.8; // 重力加速度
 	public static final double T = 0.2; // 小鸟的下落函数执行的时间
-	public double h; // 小鸟y轴的位移量
-	public double speed = 0; // 小鸟的初速度
-	public int keyFlag; // 定义按键状态，使当按住按键时不会重复调用方法
+	
+	private double h; // 小鸟y轴的位移量
+	private double speed = 0; // 小鸟的初速度
+	
+	private boolean keyFlag = true; // 按键状态，true为已释放，使当按住按键时不会重复调用方法
+	
+	public void keyPressed() {
+		keyFlag = false;
+	}
+	public void keyReleased() {
+		keyFlag = true;
+	}
+	public boolean keyIsReleased() {
+		return keyFlag;
+	}
 
 	// 小鸟的飞行逻辑
 	private void Fly() {
 		// 翅膀状态，实现小鸟振翅飞行
-		index++;
-		image = imgs[state][index / 10 % IMG_COUNT];
+		wingState++;
+		image = imgs[state][wingState / 10 % IMG_COUNT];
 
 		switch (state) {
 		case STATE_NORMAL:
@@ -88,11 +100,11 @@ public class Bird {
 
 	// 鸟的状态
 	public void BirdUp() {
-		if (keyFlag == 0) { // 如果按键是第一次按下
+		if (keyIsReleased()) { // 如果按键是第一次按下
 			state = STATE_UP;
 			speed = SPEED_UP;
-			index = 0; // 重置翅膀状态
-			keyFlag = 1; // 按键状态改为已按下
+			wingState = 0; // 重置翅膀状态
+			keyPressed();
 		}
 	}
 

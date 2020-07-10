@@ -14,13 +14,22 @@ import com.bird.util.GameUtil;
  */
 public class GameBackground {
 
-	// 背景图片
-	private BufferedImage BackgroundImg;
+	private static BufferedImage BackgroundImg;// 背景图片
+
+	private int speed; // 背景层的速度
+	private int layerX; // 背景层的坐标
 
 	// 在构造器中对资源初始化
 	public GameBackground() {
+		this.speed = 2;
+		this.layerX = 0;
+	}
+	
+	static { //读取背景图片
 		BackgroundImg = GameUtil.loadBUfferedImage(Constant.BG_IMG_PATH);
 	}
+
+	public static final int BG_IMAGE_HEIGHT = BackgroundImg.getHeight();
 
 	// 定义绘制方法,用系统提供的画笔将图片绘制到指定位置
 	public void draw(Graphics g) {
@@ -32,10 +41,17 @@ public class GameBackground {
 		int imgWidth = BackgroundImg.getWidth();
 		int imgHeight = BackgroundImg.getHeight();
 
-		int count = Constant.FRAME_WIDTH / imgWidth + 1; // 绘制次数
+		int count = Constant.FRAME_WIDTH / imgWidth + 2; // 绘制次数
 		for (int i = 0; i < count; i++) {
-			g.drawImage(BackgroundImg, imgWidth * i, Constant.FRAME_HEIGHT - imgHeight, null);
+			g.drawImage(BackgroundImg, imgWidth * i - layerX, Constant.FRAME_HEIGHT - imgHeight, null);
 		}
+		moveLogic();
 	}
 
+	// 背景层的运动逻辑
+	private void moveLogic() {
+		layerX += speed;
+		if (layerX > BackgroundImg.getWidth())
+			layerX = 0;
+	}
 }

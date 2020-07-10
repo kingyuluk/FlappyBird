@@ -65,7 +65,7 @@ public class GameFrame extends Frame implements Runnable {
 		public void keyReleased(KeyEvent e) {
 			int keycode = e.getKeyChar();
 			if (keycode == KeyEvent.VK_SPACE) {
-				bird.keyFlag = 0; // 按键释放后改变按键状态标识
+				bird.keyReleased();
 			}
 		}
 
