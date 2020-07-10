@@ -99,9 +99,9 @@ public class GameFrame extends Frame implements Runnable {
 		Graphics bufG = bufImg.getGraphics(); // 获得图片画笔
 
 		// 使用图片画笔将需要绘制的内容绘制到图片
-		background.draw(bufG); // 背景层
-		gameElement.draw(bufG); // 游戏元素层
-		foreground.draw(bufG); // 前景层
+		background.draw(bufG, bird); // 背景层
+		gameElement.draw(bufG, bird); // 游戏元素层
+		foreground.draw(bufG, bird); // 前景层
 		bird.draw(bufG); // 鸟
 
 		g.drawImage(bufImg, 0, 0, null); // 一次性将图片绘制到屏幕上

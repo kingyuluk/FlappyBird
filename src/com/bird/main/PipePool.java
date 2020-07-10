@@ -6,7 +6,7 @@ import java.util.List;
 import com.bird.util.Constant;
 
 /**
- * 为了避免反复地创建和销毁对象，使用对象池来提前创建好一些对象，使用时从对象池中获得，使用完毕归还
+ * 为了避免反复地创建和销毁对象，使用对象池来提前创建好一些对象，使用时从对象池中获得，使用完后归还
  * 
  * @author Kingyu
  *

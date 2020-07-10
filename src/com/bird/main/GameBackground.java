@@ -21,7 +21,7 @@ public class GameBackground {
 
 	// 在构造器中对资源初始化
 	public GameBackground() {
-		this.speed = 2;
+		this.speed = 1;
 		this.layerX = 0;
 	}
 	
@@ -32,7 +32,7 @@ public class GameBackground {
 	public static final int BG_IMAGE_HEIGHT = BackgroundImg.getHeight();
 
 	// 定义绘制方法,用系统提供的画笔将图片绘制到指定位置
-	public void draw(Graphics g) {
+	public void draw(Graphics g, Bird bird) {
 		// 绘制背景色
 		g.setColor(Constant.BG_COLOR);
 		g.fillRect(0, 0, Constant.FRAME_WIDTH, Constant.FRAME_HEIGHT);
@@ -44,6 +44,10 @@ public class GameBackground {
 		int count = Constant.FRAME_WIDTH / imgWidth + 2; // 绘制次数
 		for (int i = 0; i < count; i++) {
 			g.drawImage(BackgroundImg, imgWidth * i - layerX, Constant.FRAME_HEIGHT - imgHeight, null);
+		}
+		
+		if(bird.isDead()) {
+			return;
 		}
 		moveLogic();
 	}

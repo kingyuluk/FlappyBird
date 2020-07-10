@@ -28,7 +28,9 @@ public class Constant {
 			{ "img/up.png", "img/up.png", "img/up.png", "img/up.png", "img/up.png", "img/up.png", "img/up.png",
 					"img/up.png" },
 			{ "img/down_0.png", "img/down_1.png", "img/down_2.png", "img/down_3.png", "img/down_4.png",
-					"img/down_5.png", "img/down_6.png", "img/down_7.png" }, };
+					"img/down_5.png", "img/down_6.png", "img/down_7.png" },
+			{ "img/dead.png", "img/dead.png", "img/dead.png", "img/dead.png", "img/dead.png", "img/dead.png",
+					"img/dead.png", "img/dead.png", } };
 
 	public static final String[] CLOUDS_IMG_PATH = { "img/cloud_0.png", "img/cloud_1.png" };
 
@@ -42,11 +44,13 @@ public class Constant {
 
 	// 标题栏高度
 	public static final int TOP_BAR_HEIGHT = 25;
+	
+	//地面高度
+	public static final int GROUND_HEIGHT = 35;
 
 	public static final int CLOUD_BORN_PERCENT = 6; // 云朵生成的概率，单位为百分比
 	public static final int CLOUD_IMAGE_COUNT = 2; // 云朵图片的个数
 	public static final int MAX_CLOUD_COUNT = 7; // 云朵的最大数量
-	public static final int CLOUD_DIRCHANGE = 50; //云朵随机改变方向的概率，越大表示概率越小
-	
+	public static final int CLOUD_DIRCHANGE = 50; // 云朵随机改变方向的概率，越大表示概率越小
 
 }

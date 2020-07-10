@@ -44,9 +44,12 @@ public class Cloud {
 	}
 
 	// 绘制方法
-	public void draw(Graphics g) {
+	public void draw(Graphics g, Bird bird) {
 		int speed = this.speed;
 		
+		if(bird.isDead()) {
+			speed = 1;
+		}
 		if(dir == DIR_NONE)   //云彩不动
 			speed = 0;
 		
