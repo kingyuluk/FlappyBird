@@ -19,7 +19,7 @@ public class GameBackground {
 	private int speed; // 背景层的速度
 	private int layerX; // 背景层的坐标
 
-	// 在构造器中对资源初始化
+	// 在构造器中初始化
 	public GameBackground() {
 		this.speed = 1;
 		this.layerX = 0;
@@ -29,9 +29,9 @@ public class GameBackground {
 		BackgroundImg = GameUtil.loadBUfferedImage(Constant.BG_IMG_PATH);
 	}
 
-	public static final int BG_IMAGE_HEIGHT = BackgroundImg.getHeight();
+	public static final int BG_IMAGE_HEIGHT = BackgroundImg.getHeight(); //图片的高度
 
-	// 定义绘制方法,用系统提供的画笔将图片绘制到指定位置
+	// 绘制方法
 	public void draw(Graphics g, Bird bird) {
 		// 绘制背景色
 		g.setColor(Constant.BG_COLOR);
@@ -41,12 +41,12 @@ public class GameBackground {
 		int imgWidth = BackgroundImg.getWidth();
 		int imgHeight = BackgroundImg.getHeight();
 
-		int count = Constant.FRAME_WIDTH / imgWidth + 2; // 绘制次数
+		int count = Constant.FRAME_WIDTH / imgWidth + 2; // 根据窗口宽度得到图片的绘制次数
 		for (int i = 0; i < count; i++) {
 			g.drawImage(BackgroundImg, imgWidth * i - layerX, Constant.FRAME_HEIGHT - imgHeight, null);
 		}
 		
-		if(bird.isDead()) {
+		if(bird.isDead()) {  //小鸟死亡则不再绘制
 			return;
 		}
 		moveLogic();

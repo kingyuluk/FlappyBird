@@ -15,6 +15,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 
+import com.bird.util.MusicUtil;
+
 /**
  * 主窗口类，游戏窗口和绘制的相关内容
  * 
@@ -23,8 +25,18 @@ import java.awt.image.BufferedImage;
  */
 
 public class GameFrame extends Frame implements Runnable {
-
 	private static final long serialVersionUID = 1L; // 保持版本的兼容性
+
+	private static int gameState; // 游戏状态
+	public static final int STATE_READY = 0; // 游戏未开始
+	public static final int STATE_START = 1; // 游戏开始
+	public static final int STATE_OVER = 2; // 游戏结束
+
+	private GameBackground background; // 游戏背景对象
+	private GameForeground foreground; // 游戏前景对象
+	private Bird bird; // 小鸟对象
+	private GameElementLayer gameElement; // 游戏元素对象
+	private GameReady ready; // 游戏未开始时对象
 
 	// 在构造器中初始化
 	public GameFrame() {
@@ -46,22 +58,45 @@ public class GameFrame extends Frame implements Runnable {
 				System.exit(0); // 结束程序
 			}
 		});
-		// 添加按键监听
-		addKeyListener(new BirdKeyListener());
+		addKeyListener(new BirdKeyListener()); // 添加按键监听
 	}
 
 	// 用于接收按键事件的对象的内部类
 	class BirdKeyListener implements KeyListener {
-		// 按键按下
+		// 按键按下，根据游戏当前的状态调用不同的方法
 		public void keyPressed(KeyEvent e) {
 			int keycode = e.getKeyChar();
-			if (keycode == KeyEvent.VK_SPACE) {
-				bird.BirdUp();
-				bird.BirdDown();
+			switch (gameState) {
+			case STATE_READY:
+				if (keycode == KeyEvent.VK_SPACE) {
+					bird.BirdUp();
+					bird.BirdDown();
+					setGameState(STATE_START);
+					bird.startTiming();
+				}
+				break;
+			case STATE_START:
+				if (keycode == KeyEvent.VK_SPACE) {
+					bird.BirdUp();
+					bird.BirdDown();
+				}
+				break;
+			case STATE_OVER:
+				if (keycode == KeyEvent.VK_SPACE) {
+					resetGame();
+				}
+				break;
 			}
 		}
+		// 定义重新开始游戏的方法
+		private void resetGame() {
+			setGameState(STATE_READY);
+			gameElement.reset();
+			bird.reset();
 
-		// 按键松开
+		}
+
+		// 按键松开，更改按键状态标志
 		public void keyReleased(KeyEvent e) {
 			int keycode = e.getKeyChar();
 			if (keycode == KeyEvent.VK_SPACE) {
@@ -73,20 +108,27 @@ public class GameFrame extends Frame implements Runnable {
 		}
 	}
 
-	private GameBackground background; // 游戏背景对象
-	private GameForeground foreground; // 游戏前景对象
-	private Bird bird; // 小鸟对象
-	private GameElementLayer gameElement;
-
-	// 对游戏中的对象进行初始化
+	// 初始化游戏中的各个对象
 	private void initGame() {
 		background = new GameBackground();
 		gameElement = new GameElementLayer();
 		foreground = new GameForeground();
+		ready = new GameReady();
+		MusicUtil.load(); // 装载音乐资源
+
 		bird = new Bird();
+
+		setGameState(STATE_READY);
+
 		// 启动用于刷新窗口的线程
 		new Thread(this).start();
 	}
+
+	// 系统线程：屏幕内容的绘制，窗口事件的监听与处理
+	// 项目中存在两个线程：系统线程；自定义线程,调用repaint()。
+	// 两个线程会抢夺系统资源，可能会出现一次刷新周期所绘制的内容，并没有在一次刷新周期内完成
+	// （双缓冲）单独定义一张图片，将需要绘制的内容绘制到这张图片，再一次性地将图片绘制到窗口
+	private BufferedImage bufImg = new BufferedImage(FRAME_WIDTH, FRAME_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);
 
 	/**
 	 * 绘制需要屏幕内容 当repaint()方法被调用时，JVM会调用update() 不要主动调用update 参数g是系统提供的画笔，由系统进行实例化
@@ -97,13 +139,18 @@ public class GameFrame extends Frame implements Runnable {
 	public void update(Graphics g) {
 
 		Graphics bufG = bufImg.getGraphics(); // 获得图片画笔
-
 		// 使用图片画笔将需要绘制的内容绘制到图片
-		background.draw(bufG, bird); // 背景层
-		gameElement.draw(bufG, bird); // 游戏元素层
-		foreground.draw(bufG, bird); // 前景层
-		bird.draw(bufG); // 鸟
 
+		background.draw(bufG, bird); // 背景层
+		foreground.draw(bufG, bird); // 前景层
+
+		if (gameState == STATE_READY) { // 游戏未开始
+			ready.draw(bufG);
+			bird.draw(bufG); // 鸟
+		} else { // 游戏结束
+			gameElement.draw(bufG, bird); // 游戏元素层
+			bird.draw(bufG); // 鸟
+		}
 		g.drawImage(bufImg, 0, 0, null); // 一次性将图片绘制到屏幕上
 	}
 
@@ -119,9 +166,12 @@ public class GameFrame extends Frame implements Runnable {
 		}
 	}
 
-	// 系统线程：屏幕内容的绘制，窗口事件的监听与处理
-	// 项目中存在两个线程：系统线程；自定义线程,调用repaint()。
-	// 两个线程会抢夺系统资源，可能会出现一次刷新周期所绘制的内容，并没有在一次刷新周期内完成
-	// （双缓冲）单独定义一张图片，将需要绘制的内容绘制到这张图片，再一次性地将图片绘制到窗口
-	private BufferedImage bufImg = new BufferedImage(FRAME_WIDTH, FRAME_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);
+	//获取、设置游戏状态的方法
+	public static int getGameState() {
+		return gameState;
+	}
+	public static void setGameState(int gameState) {
+		GameFrame.gameState = gameState;
+	}
+
 }

@@ -1,10 +1,14 @@
 package com.bird.util;
 
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+
+import sun.font.FontDesignMetrics;
 
 /**
  * 工具类，游戏中用到的工具都在此类
@@ -62,4 +66,17 @@ public class GameUtil {
 	public static int getRandomNumber(int min, int max) {
 		return (int) (Math.random() * (max - min) + min);
 	}
+	
+	/**
+	 * 获得指定字符串在指定字体的宽高
+	 */
+	public static int getStringWidth(Font font, String str) {
+		FontMetrics fm = FontDesignMetrics.getMetrics(font);
+		return fm.stringWidth(str);
+	}
+	public static int getStringHeight(Font font, String str) {
+		FontMetrics fm = FontDesignMetrics.getMetrics(font);
+		return fm.getHeight();
+	}
+	
 }
