@@ -18,6 +18,7 @@ public class MusicUtil {
 	private static AudioClip score;
 
 	// 装载音乐资源
+	@SuppressWarnings("deprecation")
 	public static void load() {
 		try {
 			fly = Applet.newAudioClip(new File("sources/wav/fly.wav").toURL());

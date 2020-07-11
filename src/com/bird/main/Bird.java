@@ -44,7 +44,7 @@ public class Bird {
 
 	// 在构造器中对资源初始化
 	public Bird() {
-		timing = new GameTime(); // 计时器
+		timing = GameTime.getInstance(); // 计时器
 
 		// 读取小鸟图片资源
 		birdImgs = new BufferedImage[STATE_COUNT][IMG_COUNT];
