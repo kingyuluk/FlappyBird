@@ -14,7 +14,7 @@ import com.bird.util.GameUtil;
  *
  */
 public class Pipe {
-	private static BufferedImage[] imgs; // 水管的图片，static保证图片只加载一次
+	static BufferedImage[] imgs; // 水管的图片，static保证图片只加载一次
 	static {// 静态代码块，类加载的时候，初始化图片
 		final int PIPE_IMAGE_COUNT = 3;
 		imgs = new BufferedImage[PIPE_IMAGE_COUNT];
@@ -29,12 +29,12 @@ public class Pipe {
 	public static final int PIPE_HEAD_WIDTH = imgs[1].getWidth();
 	public static final int PIPE_HEAD_HEIGHT = imgs[1].getHeight();
 
-	private int x, y; // 水管的坐标，相对于元素层
-	private int width, height; // 水管的宽，高
+	int x, y; // 水管的坐标，相对于元素层
+	int width, height; // 水管的宽，高
 
-	private boolean visible; // 水管可见状态，true为可见，false表示可归还至对象池
+	boolean visible; // 水管可见状态，true为可见，false表示可归还至对象池
 	// 水管的类型
-	private int type;
+	int type;
 	public static final int TYPE_TOP_NORMAL = 0;
 	public static final int TYPE_TOP_HARD = 1;
 	public static final int TYPE_BOTTOM_NORMAL = 2;
@@ -45,9 +45,9 @@ public class Pipe {
 	// 水管的速度
 	public static final int MIN_SPEED = 1;
 	public static final int MAX_SPEED = 2;
-	private int speed;
+	int speed;
 
-	private Rectangle pipeRect; // 水管的碰撞矩形
+	Rectangle pipeRect; // 水管的碰撞矩形
 
 	// 构造器
 	public Pipe() {
@@ -106,10 +106,13 @@ public class Pipe {
 		case TYPE_HOVER_NORMAL:
 			drawHoverNormal(g);
 			break;
+
 		}
 //		//绘制碰撞矩形
 //		g.setColor(Color.black);
 //		g.drawRect((int) pipeRect.getX(), (int) pipeRect.getY(), (int) pipeRect.getWidth(), (int) pipeRect.getHeight());
+		
+		//鸟死后水管停止移动
 		if (bird.isDead()) {
 			return;
 		}
@@ -156,9 +159,9 @@ public class Pipe {
 		int y = this.y + height - PIPE_HEAD_HEIGHT;
 		g.drawImage(imgs[1], x - ((PIPE_HEAD_WIDTH - width) >> 1), y, null);
 	}
-
+	
 	/**
-	 * 水管的运动逻辑
+	 * 普通水管的运动逻辑
 	 */
 	private void pipeLogic() {
 		x -= speed;
@@ -166,7 +169,6 @@ public class Pipe {
 		if (x < -1 * PIPE_HEAD_WIDTH) {// 水管完全离开了窗口
 			visible = false;
 		}
-
 	}
 
 	/**

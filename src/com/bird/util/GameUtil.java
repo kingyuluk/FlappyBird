@@ -1,14 +1,13 @@
 package com.bird.util;
 
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.AffineTransform;
 
 import javax.imageio.ImageIO;
-
-import sun.font.FontDesignMetrics;
 
 /**
  * 工具类，游戏中用到的工具都在此类
@@ -71,12 +70,17 @@ public class GameUtil {
 	 * 获得指定字符串在指定字体的宽高
 	 */
 	public static int getStringWidth(Font font, String str) {
-		FontMetrics fm = FontDesignMetrics.getMetrics(font);
-		return fm.stringWidth(str);
+		AffineTransform affinetransform = new AffineTransform();     
+		FontRenderContext frc = new FontRenderContext(affinetransform,true,true); 
+		int textHeight = (int)(font.getStringBounds(str, frc).getWidth());
+		return textHeight;
 	}
+
 	public static int getStringHeight(Font font, String str) {
-		FontMetrics fm = FontDesignMetrics.getMetrics(font);
-		return fm.getHeight();
+		AffineTransform affinetransform = new AffineTransform();     
+		FontRenderContext frc = new FontRenderContext(affinetransform,true,true); 
+		int textHeight = (int)(font.getStringBounds(str, frc).getHeight());
+		return textHeight;
 	}
 	
 }

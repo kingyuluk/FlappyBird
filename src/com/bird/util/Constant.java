@@ -23,6 +23,8 @@ public class Constant {
 
 	// 图像资源路径
 	public static final String BG_IMG_PATH = "sources/img/background.png"; // 背景图片
+	
+	public static final int HOVER_MOVING_SCORE = 4; //出现移动管道的分数
 
 	// 小鸟图片
 	public static final String[][] BIRDS_IMG_PATH = {
