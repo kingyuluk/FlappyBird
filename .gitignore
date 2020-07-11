@@ -32,3 +32,6 @@ target/
 .DS_Store
 Thumbs.db
 /bulid/
+
+# project ignore
+score

@@ -16,9 +16,18 @@ com.bird.main   游戏的内容
 com.bird.util   自定义的工具
 
 # Version History
-1.0.0 - July 11, 2020
+1.0.0 - July 10, 2020
 * 具备完整的游戏功能
 
+1.1.0 - July 11, 2020
+* 添加了悬浮型的水管
+
+1.2.0 - July 11, 2020
+* 现在水管可以移动了，随着游戏分数的上升会提升游戏难度
+
+# Notes
+
+文本编码格式为UTF-8，若注释出现乱码请修改编译器的文本编码格式
 # Contact
 * email: <kingyuluk@hotmail.com>
 
