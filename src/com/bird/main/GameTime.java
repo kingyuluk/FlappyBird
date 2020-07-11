@@ -10,7 +10,7 @@ import com.bird.util.Constant;
 import com.bird.util.MusicUtil;
 
 /**
- * 游戏计时类,单例类，方便调用
+ * 游戏计时类, 单例类，方便调用
  * 
  * @author Kingyu
  *
@@ -31,7 +31,6 @@ public class GameTime {
 	private GameTime() {
 		timeState = STATE_READY;
 		bestScore = -1;
-
 		try {
 			loadBestTime();
 		} catch (Exception e) {
@@ -54,7 +53,7 @@ public class GameTime {
 	}
 
 	// 保存最高纪录
-	public void saveBestTime(long time) throws Exception {
+	public void saveBestScore(long time) throws Exception {
 		File file = new File(Constant.SCORE_FILE_PATH);
 		DataOutputStream dos = new DataOutputStream(new FileOutputStream(file));
 		dos.writeLong(time);
@@ -104,7 +103,7 @@ public class GameTime {
 		timeState = STATE_START;
 	}
 
-	// 结束计时
+	// 结束计时并判断是否保存记录
 	public void endTiming() {
 		endTime = System.currentTimeMillis();
 		timeState = STATE_OVER;
@@ -113,21 +112,21 @@ public class GameTime {
 		if (bestScore < score)
 			bestScore = score;
 		try {
-			saveBestTime(bestScore);
+			saveBestScore(bestScore);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	private static final int FIRST_SCORE_TIME = 6600; // 从游戏开始到通过第一根水管的所需时间
-	private static final int PER_SCORE_TIME = 2880; // 通过后续每一根水管的间隔的所需时间
+	private static final int PER_SCORE_TIME = 2900; // 通过后续每一根水管的间隔的所需时间
 
 	//将游戏时间转换为通过水管的数量
 	public long TimeToScore() {
 		long time = getTime();
 		long temp = score;
 		if (time >= FIRST_SCORE_TIME && time < FIRST_SCORE_TIME + PER_SCORE_TIME) {
-			score = 1;
+			score = 1;   //time大于FIRST_SCORE_TIME且未到第二对水管
 		} else if (time >= FIRST_SCORE_TIME + PER_SCORE_TIME) {
 			score = (int) (time - FIRST_SCORE_TIME) / PER_SCORE_TIME + 1;
 		}

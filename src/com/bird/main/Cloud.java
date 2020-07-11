@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import com.bird.util.Constant;
 
 /**
- * 云朵类，在屏幕的上半部飘动
+ * 云朵类
  * 
  * @author Kingyu
  *

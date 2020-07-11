@@ -1,6 +1,5 @@
 package com.bird.main;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import com.bird.util.Constant;
@@ -70,8 +69,8 @@ public class MovingPipe extends Pipe {
 		pipeLogic();
 
 		// 绘制碰撞矩形
-		g.setColor(Color.black);
-		g.drawRect((int) pipeRect.getX(), (int) pipeRect.getY(), (int) pipeRect.getWidth(), (int) pipeRect.getHeight());
+//		g.setColor(Color.black);
+//		g.drawRect((int) pipeRect.getX(), (int) pipeRect.getY(), (int) pipeRect.getWidth(), (int) pipeRect.getHeight());
 	}
 
 	// 绘制移动的悬浮水管
@@ -89,7 +88,7 @@ public class MovingPipe extends Pipe {
 		g.drawImage(imgs[1], x - ((PIPE_HEAD_WIDTH - width) >> 1), y + dealtY, null);
 	}
 
-	// 绘制从上往下的普通水管
+	// 绘制从上往下的移动水管
 	private void drawTopHard(Graphics g) {
 		// 拼接的个数
 		int count = (height - PIPE_HEAD_HEIGHT) / PIPE_HEIGHT + 1; // 取整+1
@@ -102,7 +101,7 @@ public class MovingPipe extends Pipe {
 				height - Constant.TOP_PIPE_LENGTHENING - PIPE_HEAD_HEIGHT + dealtY, null);
 	}
 
-	// 绘制从下往上的普通水管
+	// 绘制从下往上的移动水管
 	private void drawBottomHard(Graphics g) {
 		// 拼接的个数
 		int count = (height - PIPE_HEAD_HEIGHT) / PIPE_HEIGHT + 1;
@@ -118,13 +117,14 @@ public class MovingPipe extends Pipe {
 	 * 可动水管的运动逻辑
 	 */
 	private void pipeLogic() {
+		//x坐标的运动逻辑与普通水管相同
 		x -= speed;
 		pipeRect.x -= speed;
 		if (x < -1 * PIPE_HEAD_WIDTH) {// 水管完全离开了窗口
 			visible = false;
 		}
 
-		//水管上下移动
+		//水管上下移动的逻辑
 		if (dir == DIR_DOWN) {
 			dealtY++;
 			if (dealtY > MAX_DEALY) {
@@ -137,6 +137,6 @@ public class MovingPipe extends Pipe {
 			}
 		}
 		pipeRect.y = this.y + dealtY;
-
 	}
+	
 }

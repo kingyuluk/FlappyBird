@@ -32,7 +32,7 @@ public class PipePool {
 	/**
 	 * 从对象池中获取一个对象
 	 * 
-	 * @return
+	 * @return 传入对象的类型，以判断从哪个对象池中获取
 	 */
 	public static Pipe get(String className) {
 		if ("Pipe".equals(className)) {
