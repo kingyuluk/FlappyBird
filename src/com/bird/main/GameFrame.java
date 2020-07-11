@@ -1,5 +1,7 @@
 package com.bird.main;
 
+import com.bird.util.MusicUtil;
+
 import static com.bird.util.Constant.FRAME_HEIGHT;
 import static com.bird.util.Constant.FRAME_WIDTH;
 import static com.bird.util.Constant.FRAME_X;
@@ -15,7 +17,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 
-import com.bird.util.MusicUtil;
 
 /**
  * 主窗口类，游戏窗口和绘制的相关内容
@@ -69,31 +70,34 @@ public class GameFrame extends Frame implements Runnable {
 			switch (gameState) {
 			case STATE_READY:
 				if (keycode == KeyEvent.VK_SPACE) {
-					bird.BirdUp();
-					bird.BirdDown();
-					setGameState(STATE_START);
-					bird.startTiming();
+					// 游戏启动界面时按下空格，小鸟振翅一次并开始受重力影响
+					bird.birdUp();
+					bird.birdDown();
+					setGameState(STATE_START); // 游戏状态改变
+					bird.startTiming(); // 计时器开始计时
 				}
 				break;
 			case STATE_START:
 				if (keycode == KeyEvent.VK_SPACE) {
-					bird.BirdUp();
-					bird.BirdDown();
+					//游戏过程中按下空格则振翅一次，并持续受重力影响
+					bird.birdUp();
+					bird.birdDown();
 				}
 				break;
 			case STATE_OVER:
 				if (keycode == KeyEvent.VK_SPACE) {
+					//游戏结束时按下空格，重新开始游戏
 					resetGame();
 				}
 				break;
 			}
 		}
-		// 定义重新开始游戏的方法
+
+		// 重新开始游戏
 		private void resetGame() {
 			setGameState(STATE_READY);
 			gameElement.reset();
 			bird.reset();
-
 		}
 
 		// 按键松开，更改按键状态标志
@@ -114,30 +118,26 @@ public class GameFrame extends Frame implements Runnable {
 		gameElement = new GameElementLayer();
 		foreground = new GameForeground();
 		ready = new GameReady();
-		MusicUtil.load(); // 装载音乐资源
-
 		bird = new Bird();
-
+		MusicUtil.load();
 		setGameState(STATE_READY);
 
 		// 启动用于刷新窗口的线程
 		new Thread(this).start();
 	}
 
+	// 项目中存在两个线程：系统线程，自定义的线程：调用repaint()。
 	// 系统线程：屏幕内容的绘制，窗口事件的监听与处理
-	// 项目中存在两个线程：系统线程；自定义线程,调用repaint()。
 	// 两个线程会抢夺系统资源，可能会出现一次刷新周期所绘制的内容，并没有在一次刷新周期内完成
 	// （双缓冲）单独定义一张图片，将需要绘制的内容绘制到这张图片，再一次性地将图片绘制到窗口
 	private BufferedImage bufImg = new BufferedImage(FRAME_WIDTH, FRAME_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);
 
 	/**
-	 * 绘制需要屏幕内容 当repaint()方法被调用时，JVM会调用update() 不要主动调用update 参数g是系统提供的画笔，由系统进行实例化
-	 * 
+	 * 绘制游戏内容 当repaint()方法被调用时，JVM会调用update()，参数g是系统提供的画笔，由系统进行实例化
 	 * 单独启动一个线程，不断地快速调用repaint()，让系统对整个窗口进行重绘
 	 * 
 	 */
 	public void update(Graphics g) {
-
 		Graphics bufG = bufImg.getGraphics(); // 获得图片画笔
 		// 使用图片画笔将需要绘制的内容绘制到图片
 
@@ -166,10 +166,11 @@ public class GameFrame extends Frame implements Runnable {
 		}
 	}
 
-	//获取、设置游戏状态的方法
+	// 获取、设置游戏状态的方法
 	public static int getGameState() {
 		return gameState;
 	}
+
 	public static void setGameState(int gameState) {
 		GameFrame.gameState = gameState;
 	}

@@ -18,7 +18,7 @@ import javax.imageio.ImageIO;
 public class GameUtil {
 
 	private GameUtil() {
-	} // 私有化，不让其他类实例化该类
+	} // 私有化，防止其他类实例化此类
 
 	/**
 	 * 装载图片的方法

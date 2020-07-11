@@ -105,8 +105,7 @@ public class Pipe {
 			break;
 		case TYPE_HOVER_NORMAL:
 			drawHoverNormal(g);
-			break;
-
+			break;	
 		}
 //		//绘制碰撞矩形
 //		g.setColor(Color.black);
