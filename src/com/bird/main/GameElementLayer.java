@@ -99,23 +99,23 @@ public class GameElementLayer {
 						e.printStackTrace();
 					}
 				}
-
 			}
+			
 		}
 	}
 
 	/**
 	 * 添加普通水管
 	 * 
-	 * @param lastPipe
+	 * @param lastPipe 传入最后一根水管以获取x坐标
 	 */
 	private void addNormalPipe(Pipe lastPipe) {
 		int topHeight = GameUtil.getRandomNumber(MIN_HEIGHT, MAX_HEIGHT + 1); // 随机生成水管高度
 		int x = lastPipe.getX() + HORIZONTAL_INTERVAL; // 新水管的x坐标 = 最后一对水管的x坐标 + 水管的间隔
 
-		// 概率生成移动的水管
-
-		Pipe top = PipePool.get("Pipe");
+		Pipe top = PipePool.get("Pipe");  //从水管对象池中获取对象
+		
+		//设置x, y, height, type属性
 		top.setAttribute(x, -Constant.TOP_PIPE_LENGTHENING, topHeight + Constant.TOP_PIPE_LENGTHENING,
 				Pipe.TYPE_TOP_NORMAL, true);
 
@@ -215,13 +215,12 @@ public class GameElementLayer {
 		if (bird.isDead()) {
 			return false;
 		}
-
 		// 遍历水管容器
 		for (int i = 0; i < pipes.size(); i++) {
 			Pipe pipe = pipes.get(i);
 			// 判断碰撞矩形是否有交集
 			if (pipe.getPipeRect().intersects(bird.getBirdRect())) {
-				bird.BirdFall();
+				bird.birdFall();  //有交集则小鸟坠落
 				return true;
 			}
 		}

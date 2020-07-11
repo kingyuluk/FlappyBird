@@ -72,7 +72,7 @@ public class Bird {
 
 	// 绘制方法
 	public void draw(Graphics g) {
-		Fly();
+		fly();
 		int state_index = state > STATE_FALL ? STATE_FALL : state; // 图片资源索引
 		// 小鸟中心点计算
 		int halfImgWidth = birdImgs[state_index][0].getWidth() >> 1;
@@ -85,10 +85,8 @@ public class Bird {
 			drawGameover(g);
 		} else if (state == STATE_FALL) {
 		} else {
-			drawTime(g);
+			drawScore(g);
 		}
-
-		timing.TimeToScore();
 		// 绘制矩形
 //		g.setColor(Color.black);
 //		g.drawRect((int) birdRect.getX(), (int) birdRect.getY(), (int) birdRect.getWidth(), (int) birdRect.getHeight());
@@ -116,7 +114,7 @@ public class Bird {
 	}
 
 	// 小鸟的飞行逻辑
-	private void Fly() {
+	private void fly() {
 		// 翅膀状态，实现小鸟振翅飞行
 		wingState++;
 		image = birdImgs[state > STATE_FALL ? STATE_FALL : state][wingState / 10 % IMG_COUNT];
@@ -126,8 +124,6 @@ public class Bird {
 			break;
 
 		case STATE_UP:
-			// 控制上边界
-
 			break;
 
 		case STATE_DOWN:
@@ -136,7 +132,13 @@ public class Bird {
 			h = speed * T - g * T * T / 2;
 			y = (int) (y - h);
 			birdRect.y = (int) (birdRect.y - h);
-			// 控制边界，死亡条件
+			// 控制坠落的边界，若y坐标 > 窗口的高度 - 地面的高度 - 小鸟图片的高度则死亡
+			if (birdRect.y >= Constant.FRAME_HEIGHT - Constant.GROUND_HEIGHT - (birdImgs[state][0].getHeight() >> 1)) {
+				y = Constant.FRAME_HEIGHT - Constant.GROUND_HEIGHT - (birdImgs[state][0].getHeight() >> 1);
+				birdRect.y = Constant.FRAME_HEIGHT - Constant.GROUND_HEIGHT - (birdImgs[state][0].getHeight() >> 1);
+				birdFall();
+			}
+
 			break;
 
 		case STATE_FALL:
@@ -146,13 +148,14 @@ public class Bird {
 			y = (int) (y - h);
 			birdRect.y = (int) (birdRect.y - h);
 
-			// 控制坠落的边界
-			if (birdRect.y > Constant.FRAME_HEIGHT - Constant.GROUND_HEIGHT - (birdImgs[state][0].getHeight() >> 1)) {
+			// 控制坠落的边界，若y坐标 > 窗口的高度 - 地面的高度 - 小鸟图片的高度则死亡
+			if (birdRect.y >= Constant.FRAME_HEIGHT - Constant.GROUND_HEIGHT - (birdImgs[state][0].getHeight() >> 1)) {
+
 				y = Constant.FRAME_HEIGHT - Constant.GROUND_HEIGHT - (birdImgs[state][0].getHeight() >> 1);
 				birdRect.y = Constant.FRAME_HEIGHT - Constant.GROUND_HEIGHT - (birdImgs[state][0].getHeight() >> 1);
 
-				GameFrame.setGameState(GameFrame.STATE_OVER);
-				BirdDead();
+				GameFrame.setGameState(GameFrame.STATE_OVER); // 改变游戏状态
+				birdDead();
 			}
 			break;
 
@@ -166,38 +169,42 @@ public class Bird {
 			y = -1 * Constant.TOP_PIPE_LENGTHENING / 2;
 		}
 
+		// 控制下方边界
 		if (birdRect.y > Constant.FRAME_HEIGHT - Constant.GROUND_HEIGHT - (image.getHeight() >> 1)) {
-			BirdFall();
+			birdFall();
 		}
 	}
 
-	// 鸟的状态
-	public void BirdUp() {
+	// 小鸟振翅
+	public void birdUp() {
 		if (keyIsReleased()) { // 如果按键已释放
-			if (state == STATE_DEAD || state == STATE_FALL || state == STATE_UP)
-				return;
-			state = STATE_UP;
-			speed = SPEED_UP;
+			if (state == STATE_DEAD || state == STATE_UP || state == STATE_FALL)
+				return; // 小鸟死亡或坠落时返回
 			MusicUtil.playFly(); // 播放音效
+			state = STATE_UP;
+			speed = SPEED_UP; // 每次振翅将速度改为上升速度
 			wingState = 0; // 重置翅膀状态
 			keyPressed();
 		}
 	}
 
-	public void BirdDown() {
+	// 小鸟下降
+	public void birdDown() {
 		if (state == STATE_DEAD || state == STATE_FALL)
-			return;
+			return; // 小鸟死亡或坠落时返回
 		state = STATE_DOWN;
 	}
 
-	public void BirdFall() {
+	// 小鸟坠落（已死）
+	public void birdFall() {
 		state = STATE_FALL;
 		MusicUtil.playCrash(); // 播放音效
 		// 结束计时
 		timing.endTiming();
 	}
 
-	public void BirdDead() {
+	// 小鸟死亡
+	public void birdDead() {
 		state = STATE_DEAD;
 		// 加载游戏结束的资源
 		if (overImg == null) {
@@ -218,10 +225,9 @@ public class Bird {
 	}
 
 	// 绘制实时分数
-	private void drawTime(Graphics g) {
+	private void drawScore(Graphics g) {
 		g.setColor(Color.white);
 		g.setFont(Constant.TIME_FONT);
-//		String str = Long.toString(timing.getTimeInSeconds());  时间分数
 		String str = Long.toString(timing.TimeToScore());
 		int x = Constant.FRAME_WIDTH - GameUtil.getStringWidth(Constant.TIME_FONT, str) >> 1;
 		g.drawString(str, x, Constant.FRAME_HEIGHT / 10);
@@ -230,8 +236,8 @@ public class Bird {
 	private static final int SCORE_LOCATE = 5; // 位置补偿参数
 
 	private int flash = 0; // 图片闪烁参数
-	// 绘制游戏结束的显示
 
+	// 绘制游戏结束的显示
 	private void drawGameover(Graphics g) {
 		// 绘制结束标志
 		int x = Constant.FRAME_WIDTH - overImg.getWidth() >> 1;

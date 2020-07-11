@@ -94,6 +94,5 @@ public class GameForeground {
 			 * (Exception e) { e.printStackTrace(); }
 			 */
 		}
-
 	}
 }
