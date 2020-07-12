@@ -78,7 +78,6 @@ public class GameElementLayer {
 					int currentScore = (int) GameScore.getInstance().getScore() + 1; // 获取当前分数
                  // 移动水管刷新的概率随当前分数递增，当得分大于19后全部刷新移动水管
 					if (GameUtil.isInProbability(currentScore, 20)) {
-						System.out.println(currentScore);
 						if (GameUtil.isInProbability(1, 4)) // 生成移动水管和移动悬浮水管的概率
 							addMovingHoverPipe(lastPipe);
 						else
