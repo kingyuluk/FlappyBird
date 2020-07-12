@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 
+### [1.2.1](https://github.com/kingyuluk/FlappyBird/compare/v1.2.0...v1.2.1) (2020-07-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* 使用AudioClip类的方法播放连续的短音频可能会导致线程冲突使游戏卡顿
+* 改用sun.audio类的AudioPlayer方法播放音频
+
+### Features
+
+* 更换音频播放方式 ([4868023](https://github.com/kingyuluk/FlappyBird/commit/48680232dda693dfb499699e4d953ab70670a21d))
+
 ## 1.2.0 (2020-07-11)
 
 
