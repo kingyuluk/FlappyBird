@@ -40,11 +40,11 @@ public class Bird {
 	private Rectangle birdRect; // 碰撞矩形
 	public static final int RECT_DESCALE = 2; // 补偿碰撞矩形宽高的参数
 
-	private GameTime timing; // 飞行时间
+	private GameScore countScore; // 计分器
 
 	// 在构造器中对资源初始化
 	public Bird() {
-		timing = GameTime.getInstance(); // 计时器
+		countScore = GameScore.getInstance(); // 计分器
 
 		// 读取小鸟图片资源
 		birdImgs = new BufferedImage[STATE_COUNT][IMG_COUNT];
@@ -199,8 +199,6 @@ public class Bird {
 	public void birdFall() {
 		state = STATE_FALL;
 		MusicUtil.playCrash(); // 播放音效
-		// 结束计时
-		timing.endTiming();
 	}
 
 	// 小鸟死亡
@@ -212,24 +210,19 @@ public class Bird {
 			scoreImg = GameUtil.loadBUfferedImage(Constant.SCORE_IMG_PATH);
 			againImg = GameUtil.loadBUfferedImage(Constant.AGAIN_IMG_PATH);
 		}
+		countScore.isSaveScore(); // 判断是否保存纪录
 	}
 
 	public boolean isDead() {
 		return state == STATE_FALL || state == STATE_DEAD;
 	}
 
-	// 开始计时的方法
-	public void startTiming() {
-		if (timing.isReadyTiming())
-			timing.startTiming();
-	}
-
 	// 绘制实时分数
 	private void drawScore(Graphics g) {
 		g.setColor(Color.white);
-		g.setFont(Constant.TIME_FONT);
-		String str = Long.toString(timing.TimeToScore());
-		int x = Constant.FRAME_WIDTH - GameUtil.getStringWidth(Constant.TIME_FONT, str) >> 1;
+		g.setFont(Constant.CURRENT_SCORE_FONT);
+		String str = Long.toString(countScore.getScore());
+		int x = Constant.FRAME_WIDTH - GameUtil.getStringWidth(Constant.CURRENT_SCORE_FONT, str) >> 1;
 		g.drawString(str, x, Constant.FRAME_HEIGHT / 10);
 	}
 
@@ -254,14 +247,14 @@ public class Bird {
 		g.setFont(Constant.SCORE_FONT);
 		x = (Constant.FRAME_WIDTH - scoreImg.getWidth() / 2 >> 1) + SCORE_LOCATE;// 位置补偿
 		y += scoreImg.getHeight() >> 1;
-		String str = Long.toString(timing.TimeToScore());
+		String str = Long.toString(countScore.getScore());
 		x -= GameUtil.getStringWidth(Constant.SCORE_FONT, str) >> 1;
 		y += GameUtil.getStringHeight(Constant.SCORE_FONT, str);
 		g.drawString(str, x, y);
 
 		// 绘制最高分数
-		if (timing.getBestScore() > 0) {
-			str = Long.toString(timing.getBestScore());
+		if (countScore.getBestScore() > 0) {
+			str = Long.toString(countScore.getBestScore());
 			x = (Constant.FRAME_WIDTH + scoreImg.getWidth() / 2 >> 1) - SCORE_LOCATE;// 位置补偿
 			x -= GameUtil.getStringWidth(Constant.SCORE_FONT, str) >> 1;
 			g.drawString(str, x, y);
@@ -286,7 +279,7 @@ public class Bird {
 		int ImgHeight = birdImgs[state][0].getHeight();
 		birdRect.y = y - ImgHeight / 2 + RECT_DESCALE * 2; // 小鸟碰撞矩形坐标
 
-		timing.reset(); // 计时器
+		countScore.reset(); // 重置计分器
 		flash = 0;
 	}
 

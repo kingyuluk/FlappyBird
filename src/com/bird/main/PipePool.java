@@ -15,16 +15,14 @@ public class PipePool {
 	private static List<Pipe> pool = new ArrayList<Pipe>(); // 池中对象的容器
 	private static List<MovingPipe> movingPool = new ArrayList<MovingPipe>(); // 池中对象的容器
 
-	public static final int INIT_PIPE_COUNT = (Constant.FRAME_WIDTH
-			/ (Pipe.PIPE_HEAD_WIDTH + GameElementLayer.HORIZONTAL_INTERVAL) + 2) * 2; // 根据窗口宽度算得对象池中对象的初始个数
 	public static final int MAX_PIPE_COUNT = 30; // 对象池中对象的最大个数，自行定义
 
-	// 初始化水管容器
+	// 初始化水管容器，初始化水管的数量的计算方式见常量类中的注释
 	static {
-		for (int i = 0; i < INIT_PIPE_COUNT; i++) {
+		for (int i = 0; i < Constant.FULL_PIPE; i++) {
 			pool.add(new Pipe());
 		}
-		for (int i = 0; i < INIT_PIPE_COUNT; i++) {
+		for (int i = 0; i < Constant.FULL_PIPE; i++) {
 			movingPool.add(new MovingPipe());
 		}
 	}

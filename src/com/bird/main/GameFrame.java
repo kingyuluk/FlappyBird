@@ -72,7 +72,6 @@ public class GameFrame extends Frame implements Runnable {
 					bird.birdUp();
 					bird.birdDown();
 					setGameState(STATE_START); // 游戏状态改变
-					bird.startTiming(); // 计时器开始计时
 				}
 				break;
 			case STATE_START:

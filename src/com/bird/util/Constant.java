@@ -3,6 +3,9 @@ package com.bird.util;
 import java.awt.Color;
 import java.awt.Font;
 
+import com.bird.main.GameElementLayer;
+import com.bird.main.Pipe;
+
 /**
  * 常量类
  * 
@@ -18,13 +21,13 @@ public class Constant {
 	public static final String GAME_TITLE = "Flappy Bird written by Kingyu";
 
 	// 窗口位置
-	public static final int FRAME_X = 1200;
+	public static final int FRAME_X = 600;
 	public static final int FRAME_Y = 100;
 
 	// 图像资源路径
 	public static final String BG_IMG_PATH = "sources/img/background.png"; // 背景图片
-	
-	public static final int HOVER_MOVING_SCORE = 4; //出现移动管道的分数
+
+	public static final int PIPE_MOVING_SCORE = 4; // 出现移动管道的分数
 
 	// 小鸟图片
 	public static final String[][] BIRDS_IMG_PATH = {
@@ -73,7 +76,10 @@ public class Constant {
 	public static final int MAX_CLOUD_COUNT = 7; // 云朵的最大数量
 	public static final int CLOUD_DIRCHANGE = 50; // 云朵随机改变方向的概率，越大表示概率越小
 
-	public static final Font TIME_FONT = new Font("华文琥珀", Font.BOLD, 32);// 字体
+	public static final Font CURRENT_SCORE_FONT = new Font("华文琥珀", Font.BOLD, 32);// 字体
 	public static final Font SCORE_FONT = new Font("华文琥珀", Font.BOLD, 24);// 字体
 
+	// 窗口可容纳的水管数量+2， 由窗口宽度、水管宽度、水管间距算得
+	public static final int FULL_PIPE = (Constant.FRAME_WIDTH
+			/ (Pipe.PIPE_HEAD_WIDTH + GameElementLayer.HORIZONTAL_INTERVAL) + 2) * 2; 
 }
