@@ -1,7 +1,5 @@
 package com.bird.main;
 
-import com.bird.util.MusicUtil;
-
 import static com.bird.util.Constant.FRAME_HEIGHT;
 import static com.bird.util.Constant.FRAME_WIDTH;
 import static com.bird.util.Constant.FRAME_X;
@@ -119,7 +117,6 @@ public class GameFrame extends Frame implements Runnable {
 		foreground = new GameForeground();
 		ready = new GameReady();
 		bird = new Bird();
-		MusicUtil.load();
 		setGameState(STATE_READY);
 
 		// 启动用于刷新窗口的线程

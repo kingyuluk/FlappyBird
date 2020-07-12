@@ -22,36 +22,37 @@ public class Constant {
 	public static final int FRAME_Y = 100;
 
 	// 图像资源路径
-	public static final String BG_IMG_PATH = "sources/img/background.png"; // 背景图片
+	public static final String BG_IMG_PATH = "resources/img/background.png"; // 背景图片
 	
 	public static final int HOVER_MOVING_SCORE = 4; //出现移动管道的分数
 
-	// 小鸟图片
+		// 小鸟图片
 	public static final String[][] BIRDS_IMG_PATH = {
-			{ "sources/img/0.png", "sources/img/1.png", "sources/img/2.png", "sources/img/3.png", "sources/img/4.png",
-					"sources/img/5.png", "sources/img/6.png", "sources/img/7.png" },
-			{ "sources/img/up.png", "sources/img/up.png", "sources/img/up.png", "sources/img/up.png",
-					"sources/img/up.png", "sources/img/up.png", "sources/img/up.png", "sources/img/up.png" },
-			{ "sources/img/down_0.png", "sources/img/down_1.png", "sources/img/down_2.png", "sources/img/down_3.png",
-					"sources/img/down_4.png", "sources/img/down_5.png", "sources/img/down_6.png",
-					"sources/img/down_7.png" },
-			{ "sources/img/dead.png", "sources/img/dead.png", "sources/img/dead.png", "sources/img/dead.png",
-					"sources/img/dead.png", "sources/img/dead.png", "sources/img/dead.png", "sources/img/dead.png", } };
+			{ "resources/img/0.png", "resources/img/1.png", "resources/img/2.png", "resources/img/3.png",
+					"resources/img/4.png", "resources/img/5.png", "resources/img/6.png", "resources/img/7.png" },
+			{ "resources/img/up.png", "resources/img/up.png", "resources/img/up.png", "resources/img/up.png",
+					"resources/img/up.png", "resources/img/up.png", "resources/img/up.png", "resources/img/up.png" },
+			{ "resources/img/down_0.png", "resources/img/down_1.png", "resources/img/down_2.png",
+					"resources/img/down_3.png", "resources/img/down_4.png", "resources/img/down_5.png",
+					"resources/img/down_6.png", "resources/img/down_7.png" },
+			{ "resources/img/dead.png", "resources/img/dead.png", "resources/img/dead.png", "resources/img/dead.png",
+					"resources/img/dead.png", "resources/img/dead.png", "resources/img/dead.png",
+					"resources/img/dead.png", } };
 
 	// 云朵图片
-	public static final String[] CLOUDS_IMG_PATH = { "sources/img/cloud_0.png", "sources/img/cloud_1.png" };
+	public static final String[] CLOUDS_IMG_PATH = { "resources/img/cloud_0.png", "resources/img/cloud_1.png" };
 
 	// 水管图片
-	public static final String[] PIPE_IMG_PATH = { "sources/img/pipe.png", "sources/img/pipe_top.png",
-			"sources/img/pipe_bottom.png" };
+	public static final String[] PIPE_IMG_PATH = { "resources/img/pipe.png", "resources/img/pipe_top.png",
+			"resources/img/pipe_bottom.png" };
 
-	public static final String TITLE_IMG_PATH = "sources/img/title.png";
-	public static final String NOTICE_IMG_PATH = "sources/img/start.png";
-	public static final String SCORE_IMG_PATH = "sources/img/score.png";
-	public static final String OVER_IMG_PATH = "sources/img/over.png";
-	public static final String AGAIN_IMG_PATH = "sources/img/again.png";
+	public static final String TITLE_IMG_PATH = "resources/img/title.png";
+	public static final String NOTICE_IMG_PATH = "resources/img/start.png";
+	public static final String SCORE_IMG_PATH = "resources/img/score.png";
+	public static final String OVER_IMG_PATH = "resources/img/over.png";
+	public static final String AGAIN_IMG_PATH = "resources/img/again.png";
 
-	public static final String SCORE_FILE_PATH = "sources/score"; // 分数文件路径
+	public static final String SCORE_FILE_PATH = "resources/score"; // 分数文件路径
 
 	// 游戏背景色
 	public static final Color BG_COLOR = new Color(0x4bc4cf);
