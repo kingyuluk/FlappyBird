@@ -31,7 +31,7 @@ target/
 # system ignore
 .DS_Store
 Thumbs.db
-/bulid/
+bulid/
 
 # project ignore
 score
