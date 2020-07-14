@@ -27,11 +27,11 @@ public class MovingPipe extends Pipe {
 	/**
 	 * 设置水管参数
 	 * 
-	 * @param x
-	 * @param y
-	 * @param height
-	 * @param type
-	 * @param visible
+	 * @param x:x坐标
+	 * @param y：y坐标
+	 * @param height：水管高度
+	 * @param type：水管类型
+	 * @param visible：水管可见性
 	 */
 	public void setAttribute(int x, int y, int height, int type, boolean visible) {
 		this.x = x;
