@@ -19,12 +19,12 @@ public class MusicUtil {
 	private static AudioStream fly;
 	private static AudioStream crash;
 	private static AudioStream score;
-	
+
 	private static InputStream flyIn;
 	private static InputStream crashIn;
 	private static InputStream scoreIn;
-	
-	//wav播放
+
+	// wav播放
 	public static void playFly() {
 		try {
 			// create an audiostream from the inputstream
@@ -35,7 +35,7 @@ public class MusicUtil {
 		}
 		AudioPlayer.player.start(fly);
 	}
-	
+
 	public static void playCrash() {
 		try {
 			// create an audiostream from the inputstream
@@ -46,7 +46,7 @@ public class MusicUtil {
 		}
 		AudioPlayer.player.start(crash);
 	}
-	
+
 	public static void playScore() {
 		try {
 			// create an audiostream from the inputstream

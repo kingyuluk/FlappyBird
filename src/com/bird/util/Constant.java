@@ -31,15 +31,16 @@ public class Constant {
 
 	// 小鸟图片
 	public static final String[][] BIRDS_IMG_PATH = {
-			{ "resources/img/0.png", "resources/img/1.png", "resources/img/2.png", "resources/img/3.png", "resources/img/4.png",
-					"resources/img/5.png", "resources/img/6.png", "resources/img/7.png" },
+			{ "resources/img/0.png", "resources/img/1.png", "resources/img/2.png", "resources/img/3.png",
+					"resources/img/4.png", "resources/img/5.png", "resources/img/6.png", "resources/img/7.png" },
 			{ "resources/img/up.png", "resources/img/up.png", "resources/img/up.png", "resources/img/up.png",
 					"resources/img/up.png", "resources/img/up.png", "resources/img/up.png", "resources/img/up.png" },
-			{ "resources/img/down_0.png", "resources/img/down_1.png", "resources/img/down_2.png", "resources/img/down_3.png",
-					"resources/img/down_4.png", "resources/img/down_5.png", "resources/img/down_6.png",
-					"resources/img/down_7.png" },
+			{ "resources/img/down_0.png", "resources/img/down_1.png", "resources/img/down_2.png",
+					"resources/img/down_3.png", "resources/img/down_4.png", "resources/img/down_5.png",
+					"resources/img/down_6.png", "resources/img/down_7.png" },
 			{ "resources/img/dead.png", "resources/img/dead.png", "resources/img/dead.png", "resources/img/dead.png",
-					"resources/img/dead.png", "resources/img/dead.png", "resources/img/dead.png", "resources/img/dead.png", } };
+					"resources/img/dead.png", "resources/img/dead.png", "resources/img/dead.png",
+					"resources/img/dead.png", } };
 
 	// 云朵图片
 	public static final String[] CLOUDS_IMG_PATH = { "resources/img/cloud_0.png", "resources/img/cloud_1.png" };
@@ -81,5 +82,5 @@ public class Constant {
 
 	// 窗口可容纳的水管数量+2， 由窗口宽度、水管宽度、水管间距算得
 	public static final int FULL_PIPE = (Constant.FRAME_WIDTH
-			/ (Pipe.PIPE_HEAD_WIDTH + GameElementLayer.HORIZONTAL_INTERVAL) + 2) * 2; 
+			/ (Pipe.PIPE_HEAD_WIDTH + GameElementLayer.HORIZONTAL_INTERVAL) + 2) * 2;
 }
