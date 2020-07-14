@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 
+### [1.2.2](https://github.com/kingyuluk/FlappyBird/compare/v1.2.1...v1.2.2) (2020-07-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* 移除了计时器，更改了游戏的记分方法，现在记分更准确了
+
+### Features
+
+* 优化记分方法 ([9aa9275](https://github.com/kingyuluk/FlappyBird/commit/9aa927537dc9180942c4a982ea46edd840d7c769))
+
 ### [1.2.1](https://github.com/kingyuluk/FlappyBird/compare/v1.2.0...v1.2.1) (2020-07-12)
 
 
