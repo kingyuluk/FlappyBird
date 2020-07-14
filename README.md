@@ -16,13 +16,13 @@ Flappy Bird for desktop platforms.
 ## 游戏界面
 
 ### 游戏启动
-![image](https://github.com/kingyuluk/flappy-bird/blob/master/examples/start.png)
+![image](https://github.com/kingyuluk/FlappyBird/blob/master/resources/readme_img/start.png)
 
 ### 运行示例
-![image](https://github.com/kingyuluk/flappy-bird/blob/master/examples/play.gif)
+![image](https://github.com/kingyuluk/FlappyBird/blob/master/resources/readme_img/play.gif)
 
 ### 游戏结束
-![image](https://github.com/kingyuluk/flappy-bird/blob/master/examples/over.png)
+![image](https://github.com/kingyuluk/FlappyBird/blob/master/resources/readme_img/over.png)
 
 
 ## Package Contents
