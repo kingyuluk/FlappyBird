@@ -27,8 +27,6 @@ public class Constant {
 	// 图像资源路径
 	public static final String BG_IMG_PATH = "resources/img/background.png"; // 背景图片
 
-	public static final int PIPE_MOVING_SCORE = 4; // 出现移动管道的分数
-
 	// 小鸟图片
 	public static final String[][] BIRDS_IMG_PATH = {
 			{ "resources/img/0.png", "resources/img/1.png", "resources/img/2.png", "resources/img/3.png",
@@ -75,7 +73,6 @@ public class Constant {
 	public static final int CLOUD_BORN_PERCENT = 6; // 云朵生成的概率，单位为百分比
 	public static final int CLOUD_IMAGE_COUNT = 2; // 云朵图片的个数
 	public static final int MAX_CLOUD_COUNT = 7; // 云朵的最大数量
-	public static final int CLOUD_DIRCHANGE = 50; // 云朵随机改变方向的概率，越大表示概率越小
 
 	public static final Font CURRENT_SCORE_FONT = new Font("华文琥珀", Font.BOLD, 32);// 字体
 	public static final Font SCORE_FONT = new Font("华文琥珀", Font.BOLD, 24);// 字体

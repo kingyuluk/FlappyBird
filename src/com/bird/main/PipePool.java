@@ -12,8 +12,8 @@ import com.bird.util.Constant;
  *
  */
 public class PipePool {
-	private static List<Pipe> pool = new ArrayList<Pipe>(); // 池中对象的容器
-	private static List<MovingPipe> movingPool = new ArrayList<MovingPipe>(); // 池中对象的容器
+	private static final List<Pipe> pool = new ArrayList<>(); // 池中对象的容器
+	private static final List<MovingPipe> movingPool = new ArrayList<>(); // 池中对象的容器
 
 	public static final int MAX_PIPE_COUNT = 30; // 对象池中对象的最大个数，自行定义
 
@@ -52,8 +52,6 @@ public class PipePool {
 
 	/**
 	 * 归还对象给容器
-	 * 
-	 * @param pipe
 	 */
 	public static void giveBack(Pipe pipe) {
 		//判断类的类型

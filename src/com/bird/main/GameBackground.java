@@ -14,9 +14,9 @@ import com.bird.util.GameUtil;
  */
 public class GameBackground {
 
-	private static BufferedImage BackgroundImg;// 背景图片
+	private static final BufferedImage BackgroundImg;// 背景图片
 
-	private int speed; // 背景层的速度
+	private final int speed; // 背景层的速度
 	private int layerX; // 背景层的坐标
 
 	// 在构造器中初始化
@@ -26,10 +26,8 @@ public class GameBackground {
 	}
 	
 	static { //读取背景图片
-		BackgroundImg = GameUtil.loadBUfferedImage(Constant.BG_IMG_PATH);
+		BackgroundImg = GameUtil.loadBufferedImage(Constant.BG_IMG_PATH);
 	}
-
-	public static final int BG_IMAGE_HEIGHT = BackgroundImg.getHeight(); //图片的高度
 
 	// 绘制方法
 	public void draw(Graphics g, Bird bird) {

@@ -2,9 +2,9 @@ package com.bird.main;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
 import com.bird.util.Constant;
 import com.bird.util.GameUtil;
+import static com.bird.util.GameUtil.drawTitle;
 
 /**
  * 游戏启动界面类
@@ -14,15 +14,15 @@ import com.bird.util.GameUtil;
  */
 public class GameReady {
 
-	private BufferedImage titleImg;
-	private BufferedImage noticeImg;
+	private final BufferedImage titleImg;
+	private final BufferedImage noticeImg;
 
-	private int flash; // 图像闪烁参数
+	private int flash = 0; // 图像闪烁参数
 
 	// 构造器中进行初始化，装载图像资源
 	public GameReady() {
-		titleImg = GameUtil.loadBUfferedImage(Constant.TITLE_IMG_PATH);
-		noticeImg = GameUtil.loadBUfferedImage(Constant.NOTICE_IMG_PATH);
+		titleImg = GameUtil.loadBufferedImage(Constant.TITLE_IMG_PATH);
+		noticeImg = GameUtil.loadBufferedImage(Constant.NOTICE_IMG_PATH);
 	}
 
 	public void draw(Graphics g) {
@@ -33,14 +33,10 @@ public class GameReady {
 
 		// 使notice的图像闪烁
 		final int COUNT = 30; // 闪烁周期
-		if (flash++ > COUNT) {
-			// 计算notice图像的x、y坐标
-			x = Constant.FRAME_WIDTH - noticeImg.getWidth() >> 1;
-			y = Constant.FRAME_HEIGHT / 5 * 3;
-			g.drawImage(noticeImg, x, y, null); // 绘制
-			if (flash == COUNT * 2) // 重置闪烁参数
+		if (flash++ > COUNT)
+			drawTitle(noticeImg, g);
+		if (flash == COUNT * 2) // 重置闪烁参数
 				flash = 0;
-		}
 	}
 
 }
