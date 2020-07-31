@@ -62,9 +62,7 @@ v1.0.0 - July 10, 2020
 
 * sun包在不同操作系统和不同版本的JDK中可能发生变化，因此无法确保工作在所有JAVA平台上
 
+* 图片与音效资源皆来源于网络，仅供学习交流
+
 ## Contact
 * email: <kingyuluk@hotmail.com>
-
-## License
-
-* 图片与音效资源皆来源于网络，仅供学习交流
