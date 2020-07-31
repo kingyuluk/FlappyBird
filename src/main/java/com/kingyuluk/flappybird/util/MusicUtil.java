@@ -1,9 +1,10 @@
-package com.bird.util;
+package com.kingyuluk.flappybird.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import com.kingyuluk.flappybird.constant.Constant;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 

@@ -1,7 +1,7 @@
-package com.bird.util;
+package com.kingyuluk.flappybird.constant;
 
-import com.bird.main.GameElementLayer;
-import com.bird.main.Pipe;
+import com.kingyuluk.flappybird.game.GameElementLayer;
+import com.kingyuluk.flappybird.game.Pipe;
 
 import java.awt.*;
 import java.net.URL;

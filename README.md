@@ -31,11 +31,13 @@ Flappy Bird for desktop platforms.
 
 
 ## Package Contents
-* com.bird.app    游戏的入口
+* com.kingyuluk.flappybird.app.GameApp    游戏启动类
 
-* com.bird.main   游戏的内容
+* com.kingyuluk.flappybird.game   游戏的内容
 
-* com.bird.util   自定义的工具
+* com.kingyuluk.flappybird.util   自定义的工具
+
+* com.kingyuluk.flappybird.constant   常量
 
 ## Change Log
 

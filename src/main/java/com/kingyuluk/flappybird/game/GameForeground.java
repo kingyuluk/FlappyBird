@@ -1,12 +1,12 @@
-package com.bird.main;
+package com.kingyuluk.flappybird.game;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bird.util.Constant;
-import com.bird.util.GameUtil;
+import com.kingyuluk.flappybird.constant.Constant;
+import com.kingyuluk.flappybird.util.GameUtil;
 
 /**
  * 前景类， 游戏中的遮挡层 包含多朵云

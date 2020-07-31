@@ -1,4 +1,4 @@
-package com.bird.main;
+package com.kingyuluk.flappybird.game;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -6,8 +6,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
-import com.bird.util.Constant;
-import com.bird.util.MusicUtil;
+import com.kingyuluk.flappybird.constant.Constant;
+import com.kingyuluk.flappybird.util.MusicUtil;
 
 /**
  * 游戏计时类, 单例类，方便调用

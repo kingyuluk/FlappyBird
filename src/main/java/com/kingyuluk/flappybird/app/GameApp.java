@@ -1,6 +1,6 @@
-package com.bird.app;
+package com.kingyuluk.flappybird.app;
 
-import com.bird.main.GameFrame;
+import com.kingyuluk.flappybird.game.GameFrame;
 
 /**
  * 程序入口类

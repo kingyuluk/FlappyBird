@@ -1,11 +1,11 @@
-package com.bird.main;
+package com.kingyuluk.flappybird.game;
 
-import static com.bird.util.Constant.FRAME_HEIGHT;
-import static com.bird.util.Constant.FRAME_WIDTH;
-import static com.bird.util.Constant.FRAME_X;
-import static com.bird.util.Constant.FRAME_Y;
-import static com.bird.util.Constant.GAME_INTERVAL;
-import static com.bird.util.Constant.GAME_TITLE;
+import static com.kingyuluk.flappybird.constant.Constant.FRAME_HEIGHT;
+import static com.kingyuluk.flappybird.constant.Constant.FRAME_WIDTH;
+import static com.kingyuluk.flappybird.constant.Constant.FRAME_X;
+import static com.kingyuluk.flappybird.constant.Constant.FRAME_Y;
+import static com.kingyuluk.flappybird.constant.Constant.GAME_INTERVAL;
+import static com.kingyuluk.flappybird.constant.Constant.GAME_TITLE;
 
 import java.awt.Frame;
 import java.awt.Graphics;

@@ -1,11 +1,11 @@
-package com.bird.main;
+package com.kingyuluk.flappybird.game;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bird.util.Constant;
-import com.bird.util.GameUtil;
+import com.kingyuluk.flappybird.constant.Constant;
+import com.kingyuluk.flappybird.util.GameUtil;
 
 /**
  * 游戏中各种元素层的类

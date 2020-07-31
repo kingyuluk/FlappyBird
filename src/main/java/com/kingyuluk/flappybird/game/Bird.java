@@ -1,15 +1,15 @@
-package com.bird.main;
+package com.kingyuluk.flappybird.game;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-import com.bird.util.Constant;
-import com.bird.util.GameUtil;
-import com.bird.util.MusicUtil;
+import com.kingyuluk.flappybird.constant.Constant;
+import com.kingyuluk.flappybird.util.GameUtil;
+import com.kingyuluk.flappybird.util.MusicUtil;
 
-import static com.bird.util.GameUtil.drawTitle;
+import static com.kingyuluk.flappybird.util.GameUtil.drawTitle;
 
 /**
  * 小鸟类，小鸟的绘制与飞行逻辑都在此类

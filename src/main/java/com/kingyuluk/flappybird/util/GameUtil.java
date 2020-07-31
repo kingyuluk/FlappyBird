@@ -1,4 +1,6 @@
-package com.bird.util;
+package com.kingyuluk.flappybird.util;
+
+import com.kingyuluk.flappybird.constant.Constant;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

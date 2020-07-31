@@ -1,4 +1,4 @@
-package com.bird.main;
+package com.kingyuluk.flappybird.game;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
