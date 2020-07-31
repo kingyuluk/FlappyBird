@@ -1,14 +1,14 @@
 package com.bird.util;
 
-import java.awt.Color;
-import java.awt.Font;
-
 import com.bird.main.GameElementLayer;
 import com.bird.main.Pipe;
 
+import java.awt.*;
+import java.net.URL;
+
 /**
  * 常量类
- * 
+ *
  * @author Kingyu 后续优化可写入数据库或文件中，便于修改
  */
 
@@ -24,36 +24,77 @@ public class Constant {
 	public static final int FRAME_X = 600;
 	public static final int FRAME_Y = 100;
 
+
+	private static final String basePath;
+
+	static {
+		URL resource = Constant.class.getClassLoader().getResource(".");
+		if (resource != null) {
+			basePath = resource.getPath();
+		} else {
+			basePath = "";
+		}
+	}
+
 	// 图像资源路径
-	public static final String BG_IMG_PATH = "resources/img/background.png"; // 背景图片
+	public static final String BG_IMG_PATH = basePath + "img/background.png"; // 背景图片
 
 	// 小鸟图片
 	public static final String[][] BIRDS_IMG_PATH = {
-			{ "resources/img/0.png", "resources/img/1.png", "resources/img/2.png", "resources/img/3.png",
-					"resources/img/4.png", "resources/img/5.png", "resources/img/6.png", "resources/img/7.png" },
-			{ "resources/img/up.png", "resources/img/up.png", "resources/img/up.png", "resources/img/up.png",
-					"resources/img/up.png", "resources/img/up.png", "resources/img/up.png", "resources/img/up.png" },
-			{ "resources/img/down_0.png", "resources/img/down_1.png", "resources/img/down_2.png",
-					"resources/img/down_3.png", "resources/img/down_4.png", "resources/img/down_5.png",
-					"resources/img/down_6.png", "resources/img/down_7.png" },
-			{ "resources/img/dead.png", "resources/img/dead.png", "resources/img/dead.png", "resources/img/dead.png",
-					"resources/img/dead.png", "resources/img/dead.png", "resources/img/dead.png",
-					"resources/img/dead.png", } };
+			{basePath + "img/0.png",
+					basePath + "img/1.png",
+					basePath + "img/2.png",
+					basePath + "img/3.png",
+					basePath + "img/4.png",
+					basePath + "img/5.png",
+					basePath + "img/6.png",
+					basePath + "img/7.png"},
+			{basePath + "img/up.png",
+					basePath + "img/up.png",
+					basePath + "img/up.png",
+					basePath + "img/up.png",
+					basePath + "img/up.png",
+					basePath + "img/up.png",
+					basePath + "img/up.png",
+					basePath + "img/up.png"},
+			{basePath + "img/down_0.png",
+					basePath + "img/down_1.png",
+					basePath + "img/down_2.png",
+					basePath + "img/down_3.png",
+					basePath + "img/down_4.png",
+					basePath + "img/down_5.png",
+					basePath + "img/down_6.png",
+					basePath + "img/down_7.png"},
+			{basePath + "img/dead.png",
+					basePath + "img/dead.png",
+					basePath + "img/dead.png",
+					basePath + "img/dead.png",
+					basePath + "img/dead.png",
+					basePath + "img/dead.png",
+					basePath + "img/dead.png",
+					basePath + "img/dead.png",}};
 
 	// 云朵图片
-	public static final String[] CLOUDS_IMG_PATH = { "resources/img/cloud_0.png", "resources/img/cloud_1.png" };
+	public static final String[] CLOUDS_IMG_PATH = {basePath + "img/cloud_0.png",
+			basePath + "img/cloud_1.png"};
 
 	// 水管图片
-	public static final String[] PIPE_IMG_PATH = { "resources/img/pipe.png", "resources/img/pipe_top.png",
-			"resources/img/pipe_bottom.png" };
+	public static final String[] PIPE_IMG_PATH = {basePath + "img/pipe.png",
+			basePath + "img/pipe_top.png",
+			basePath + "img/pipe_bottom.png"};
 
-	public static final String TITLE_IMG_PATH = "resources/img/title.png";
-	public static final String NOTICE_IMG_PATH = "resources/img/start.png";
-	public static final String SCORE_IMG_PATH = "resources/img/score.png";
-	public static final String OVER_IMG_PATH = "resources/img/over.png";
-	public static final String AGAIN_IMG_PATH = "resources/img/again.png";
+	public static final String TITLE_IMG_PATH = basePath + "img/title.png";
+	public static final String NOTICE_IMG_PATH = basePath + "img/start.png";
+	public static final String SCORE_IMG_PATH = basePath + "img/score.png";
+	public static final String OVER_IMG_PATH = basePath + "img/over.png";
+	public static final String AGAIN_IMG_PATH = basePath + "img/again.png";
 
-	public static final String SCORE_FILE_PATH = "resources/score"; // 分数文件路径
+	public static final String SCORE_FILE_PATH = basePath + "score"; // 分数文件路径
+
+	//游戏音乐
+	public static final String MUSIC_FLY = basePath + "wav/fly.wav";
+	public static final String MUSIC_CRASH = basePath + "wav/fly.wav";
+	public static final String MUSIC_SCORE = basePath + "wav/fly.wav";
 
 	// 游戏背景色
 	public static final Color BG_COLOR = new Color(0x4bc4cf);
