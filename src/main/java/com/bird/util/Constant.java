@@ -93,8 +93,8 @@ public class Constant {
 
 	//游戏音乐
 	public static final String MUSIC_FLY = basePath + "wav/fly.wav";
-	public static final String MUSIC_CRASH = basePath + "wav/fly.wav";
-	public static final String MUSIC_SCORE = basePath + "wav/fly.wav";
+	public static final String MUSIC_CRASH = basePath + "wav/crash.wav";
+	public static final String MUSIC_SCORE = basePath + "wav/score.wav";
 
 	// 游戏背景色
 	public static final Color BG_COLOR = new Color(0x4bc4cf);
