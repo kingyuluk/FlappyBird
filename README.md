@@ -1,14 +1,16 @@
 # Flappy Bird
-Flappy Bird for desktop platforms.
-
-基于Java和JDK基本库编写
-
-开发平台为macOS 10.15.5，开发工具为Eclipse IDE (4.16.0)，Java SE 8[1.8.0_251]
+![](https://img.shields.io/badge/JDK-1.8.0-a7742f.svg)
+![](https://img.shields.io/badge/platform-MacOS%20%7C%20Windows-yellow.svg)
+![](https://img.shields.io/github/license/kingyuluk/FlappyBird)
+![](https://img.shields.io/github/v/release/kingyuluk/FlappyBird)
+![](https://img.shields.io/github/repo-size/kingyuluk/FlappyBird?color=ff69b4)
 
 
 ## Overview
 
-本项目为Flappy bird的桌面平台版，具备原版的所有功能，且相较于原版优化了游戏难度并加入移动型水管，增加可玩性。
+基于Java基础类库编写的Flappy Bird桌面平台版。
+
+具备原版所有功能，相较原版加入了移动型水管、优化了难度梯度。
 
 ## How to play
 直接运行FlappyBird.jar即可开始游戏。
@@ -18,17 +20,27 @@ Flappy Bird for desktop platforms.
 每局游戏随机刷新所有元素，小鸟受到重力作用会不断下坠，敲击空格键使小鸟振翅向上飞，游戏过程中需要玩家控制小鸟不断飞行，并注意躲避随机生成的水管，每飞过一对水管就会得分，飞行过程中如果撞到水管或掉落在地则游戏结束。
 
 
-## 游戏界面
+## Preview
 
-### 游戏启动
+* Game ready
+
 ![image](https://github.com/kingyuluk/FlappyBird/blob/master/resources/readme_img/start.png)
 
-### 运行示例
+* Game start
+
 ![image](https://github.com/kingyuluk/FlappyBird/blob/master/resources/readme_img/play.gif)
 
-### 游戏结束
+* Game over
+
 ![image](https://github.com/kingyuluk/FlappyBird/blob/master/resources/readme_img/over.png)
 
+## Notes
+
+* 文本编码格式为UTF-8，若注释出现乱码请修改编译器的文本编码格式
+
+* sun包在不同操作系统和不同版本的JDK中可能发生变化，因此无法确保工作在所有JAVA平台上
+
+* 图片与音效资源皆来源于网络，仅供学习交流
 
 ## Package Contents
 * com.bird.app    游戏的入口
@@ -56,13 +68,5 @@ v1.1.0 - July 11, 2020
 v1.0.0 - July 10, 2020
 * 具备完整的游戏功能
 
-## Notes
-
-* 文本编码格式为UTF-8，若注释出现乱码请修改编译器的文本编码格式
-
-* sun包在不同操作系统和不同版本的JDK中可能发生变化，因此无法确保工作在所有JAVA平台上
-
-* 图片与音效资源皆来源于网络，仅供学习交流
-
-## Contact
-* email: <kingyuluk@hotmail.com>
+## License
+[MIT](License) © Kingyu Luk
