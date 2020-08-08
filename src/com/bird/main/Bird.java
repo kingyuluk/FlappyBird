@@ -9,8 +9,6 @@ import com.bird.util.Constant;
 import com.bird.util.GameUtil;
 import com.bird.util.MusicUtil;
 
-import static com.bird.util.GameUtil.drawTitle;
-
 /**
  * 小鸟类，小鸟的绘制与飞行逻辑都在此类
  *
@@ -81,11 +79,10 @@ public class Bird {
             image = birdImages[STATE_UP][0];
         g.drawImage(image, x - halfImgWidth, y - halfImgHeight, null); // x坐标于窗口1/4处，y坐标位窗口中心
 
-        if (state == STATE_DEAD) {
+        if (state == STATE_DEAD)
             drawGameOver(g);
-        } else if (state != STATE_FALL) {
+        else if (state != STATE_FALL)
             drawScore(g);
-        }
         // 绘制矩形
 //      g.setColor(Color.black);
 //      g.drawRect((int) birdRect.getX(), (int) birdRect.getY(), (int) birdRect.getWidth(), (int) birdRect.getHeight());
@@ -117,57 +114,48 @@ public class Bird {
         wingState++;
         image = birdImages[Math.min(state, STATE_FALL)][wingState / 10 % IMG_COUNT];
 
+        // 下方边界: 窗口的高度 - 地面的高度 - 小鸟图片的高度
+        final int bottomBoundary = Constant.FRAME_HEIGHT - Constant.GROUND_HEIGHT - (birdImages[0][0].getHeight() >> 1);
+        final int topBoundary = -50;
+
         switch (state) {
             case STATE_DOWN:
-                // 物理公式
+                // 自由落体
                 speed -= g * T;
-                // 小鸟y轴的位移量
                 double h = speed * T - g * T * T / 2;
-                y = (int) (y - h);
-                birdRect.y = (int) (birdRect.y - h);
-                // 控制坠落的边界，若y坐标 > 窗口的高度 - 地面的高度 - 小鸟图片的高度则死亡
-                if (birdRect.y >= Constant.FRAME_HEIGHT - Constant.GROUND_HEIGHT - (birdImages[state][0].getHeight() >> 1)) {
-                    y = Constant.FRAME_HEIGHT - Constant.GROUND_HEIGHT - (birdImages[state][0].getHeight() >> 1);
-                    birdRect.y = Constant.FRAME_HEIGHT - Constant.GROUND_HEIGHT - (birdImages[state][0].getHeight() >> 1);
-                    birdFall();
-                }
-
-                break;
-
-            case STATE_FALL:
-                // 鸟死亡，自由落体
-                speed -= g * T;
-                h = speed * T - g * T * T / 2;
-                y = (int) (y - h);
-                birdRect.y = (int) (birdRect.y - h);
-
-                // 控制坠落的边界，若y坐标 > 窗口的高度 - 地面的高度 - 小鸟图片的高度则死亡
-                if (birdRect.y >= Constant.FRAME_HEIGHT - Constant.GROUND_HEIGHT - (birdImages[state][0].getHeight() >> 1)) {
-
-                    y = Constant.FRAME_HEIGHT - Constant.GROUND_HEIGHT - (birdImages[state][0].getHeight() >> 1);
-                    birdRect.y = Constant.FRAME_HEIGHT - Constant.GROUND_HEIGHT - (birdImages[state][0].getHeight() >> 1);
-
-                    GameFrame.setGameState(GameFrame.STATE_OVER); // 改变游戏状态
+                y = Math.min((int) (y - h), bottomBoundary);
+                birdRect.y = Math.min((int) (birdRect.y - h), bottomBoundary);
+                if (birdRect.y == bottomBoundary) {
+                    MusicUtil.playCrash();
                     birdDead();
                 }
                 break;
 
+            case STATE_FALL:
+                // 自由落体
+                speed -= g * T;
+                h = speed * T - g * T * T / 2;
+                y = Math.min((int) (y - h), bottomBoundary);
+                birdRect.y = Math.min((int) (birdRect.y - h), bottomBoundary);
+                if (birdRect.y == bottomBoundary)
+                    birdDead();
+                break;
+
+            case STATE_DEAD:
+                GameFrame.setGameState(GameFrame.STATE_OVER);
+                break;
+
             case STATE_NORMAL:
             case STATE_UP:
-            case STATE_DEAD:
                 break;
         }
 
         // 控制上方边界
-        if (birdRect.y < -1 * Constant.TOP_PIPE_LENGTHENING / 2) {
-            birdRect.y = -1 * Constant.TOP_PIPE_LENGTHENING / 2;
-            y = -1 * Constant.TOP_PIPE_LENGTHENING / 2;
+        if (birdRect.y < topBoundary) {
+            birdRect.y = topBoundary;
+            y = topBoundary;
         }
 
-        // 控制下方边界
-        if (birdRect.y > Constant.FRAME_HEIGHT - Constant.GROUND_HEIGHT - (image.getHeight() >> 1)) {
-            birdFall();
-        }
     }
 
     // 小鸟振翅
@@ -194,6 +182,13 @@ public class Bird {
     public void birdFall() {
         state = STATE_FALL;
         MusicUtil.playCrash(); // 播放音效
+        speed = 0;  // 速度置0，防止小鸟继续上升与水管重叠
+        // 死后画面静止片刻
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     // 小鸟死亡
@@ -208,6 +203,7 @@ public class Bird {
         countScore.isSaveScore(); // 判断是否保存纪录
     }
 
+    // 判断小鸟是否死亡
     public boolean isDead() {
         return state == STATE_FALL || state == STATE_DEAD;
     }
@@ -258,7 +254,7 @@ public class Bird {
         // 绘制继续游戏，使图像闪烁
         final int COUNT = 30; // 闪烁周期
         if (flash++ > COUNT)
-            drawTitle(againImg, g);
+            GameUtil.drawImage(againImg,Constant.FRAME_WIDTH - againImg.getWidth() >> 1, Constant.FRAME_HEIGHT / 5 * 3, g);
         if (flash == COUNT * 2) // 重置闪烁参数
             flash = 0;
     }

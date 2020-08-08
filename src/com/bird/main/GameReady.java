@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import com.bird.util.Constant;
 import com.bird.util.GameUtil;
-import static com.bird.util.GameUtil.drawTitle;
 
 /**
  * 游戏启动界面类
@@ -34,7 +33,7 @@ public class GameReady {
 		// 使notice的图像闪烁
 		final int COUNT = 30; // 闪烁周期
 		if (flash++ > COUNT)
-			drawTitle(noticeImg, g);
+			GameUtil.drawImage(noticeImg, Constant.FRAME_WIDTH - noticeImg.getWidth() >> 1, Constant.FRAME_HEIGHT / 5 * 3, g);
 		if (flash == COUNT * 2) // 重置闪烁参数
 				flash = 0;
 	}

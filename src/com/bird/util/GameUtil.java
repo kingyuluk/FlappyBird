@@ -81,10 +81,14 @@ public class GameUtil {
     }
 
 
-    // 于屏幕x轴中央、y轴3/5处绘制图像
-    public static void drawTitle(BufferedImage image, Graphics g) {
-        int x = Constant.FRAME_WIDTH - image.getWidth() >> 1;
-        int y = Constant.FRAME_HEIGHT / 5 * 3;
+    /**
+     *
+     * @param image:图片资源
+     * @param x：x坐标
+     * @param y：y坐标
+     * @param g：画笔
+     */
+    public static void drawImage(BufferedImage image, int x, int y, Graphics g) {
         g.drawImage(image, x, y, null);
     }
 
