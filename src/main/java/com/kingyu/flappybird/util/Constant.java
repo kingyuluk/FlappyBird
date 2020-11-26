@@ -1,10 +1,7 @@
-package com.bird.util;
+package com.kingyu.flappybird.util;
 
 import java.awt.Color;
 import java.awt.Font;
-
-import com.bird.main.GameElementLayer;
-import com.bird.main.Pipe;
 
 /**
  * 常量类
@@ -55,11 +52,14 @@ public class Constant {
 
 	public static final String SCORE_FILE_PATH = "resources/score"; // 分数文件路径
 
+	// 游戏速度（水管及背景层的移动速度）
+	public static final int GAME_SPEED = 4;
+
 	// 游戏背景色
 	public static final Color BG_COLOR = new Color(0x4bc4cf);
 
 	// 游戏刷新率
-	public static final int GAME_INTERVAL = 1000 / 60;
+	public static final int GAME_INTERVAL = 1000 / 30;
 
 	// 标题栏高度
 	public static final int TOP_BAR_HEIGHT = 20;
@@ -77,7 +77,4 @@ public class Constant {
 	public static final Font CURRENT_SCORE_FONT = new Font("华文琥珀", Font.BOLD, 32);// 字体
 	public static final Font SCORE_FONT = new Font("华文琥珀", Font.BOLD, 24);// 字体
 
-	// 窗口可容纳的水管数量+2， 由窗口宽度、水管宽度、水管间距算得
-	public static final int FULL_PIPE = (Constant.FRAME_WIDTH
-			/ (Pipe.PIPE_HEAD_WIDTH + GameElementLayer.HORIZONTAL_INTERVAL) + 2) * 2;
 }

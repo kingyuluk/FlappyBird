@@ -1,11 +1,11 @@
-package com.bird.main;
+package com.kingyu.flappybird.game;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bird.util.Constant;
-import com.bird.util.GameUtil;
+import com.kingyu.flappybird.util.Constant;
+import com.kingyu.flappybird.util.GameUtil;
 
 /**
  * 游戏中各种元素层的类
@@ -70,11 +70,14 @@ public class GameElementLayer {
         } else {
             // 判断最后一对水管是否完全进入游戏窗口，若进入则添加水管
             Pipe lastPipe = pipes.get(pipes.size() - 1); // 获得容器中最后一个水管
+            int currentDistance = lastPipe.getX() - bird.getBirdX() + Bird.BIRD_WIDTH / 2; // 小鸟和最后一根水管的距离
+            final int SCORE_DISTANCE = Pipe.PIPE_WIDTH * 2 + HORIZONTAL_INTERVAL; // 小于得分距离则得分
             if (lastPipe.isInFrame()) {
-                if (pipes.size() >= Constant.FULL_PIPE - 2)// 若窗口中可容纳的水管已满，说明小鸟已飞到第一对水管的位置，开始记分
-                    GameScore.getInstance().setScore(bird);
+                if (pipes.size() >= PipePool.FULL_PIPE - 2) {
+                    ScoreCounter.getInstance().score(bird);
+                }
                 try {
-                    int currentScore = (int) GameScore.getInstance().getScore() + 1; // 获取当前分数
+                    int currentScore = (int) ScoreCounter.getInstance().getCurrentScore() + 1; // 获取当前分数
                     // 移动水管刷新的概率随当前分数递增，当得分大于19后全部刷新移动水管
                     if (GameUtil.isInProbability(currentScore, 20)) {
                         if (GameUtil.isInProbability(1, 4)) // 生成移动水管和移动悬浮水管的概率
@@ -209,7 +212,7 @@ public class GameElementLayer {
         for (Pipe pipe : pipes) {
             // 判断碰撞矩形是否有交集
             if (pipe.getPipeRect().intersects(bird.getBirdRect())) {
-                bird.birdFall(); // 有交集则小鸟坠落
+                bird.deadBirdFall();
                 return;
             }
         }

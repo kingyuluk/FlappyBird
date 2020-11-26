@@ -1,4 +1,4 @@
-package com.bird.util;
+package com.kingyu.flappybird.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;

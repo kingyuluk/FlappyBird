@@ -1,11 +1,11 @@
-package com.bird.main;
+package com.kingyu.flappybird.game;
 
-import static com.bird.util.Constant.FRAME_HEIGHT;
-import static com.bird.util.Constant.FRAME_WIDTH;
-import static com.bird.util.Constant.FRAME_X;
-import static com.bird.util.Constant.FRAME_Y;
-import static com.bird.util.Constant.GAME_INTERVAL;
-import static com.bird.util.Constant.GAME_TITLE;
+import static com.kingyu.flappybird.util.Constant.FRAME_HEIGHT;
+import static com.kingyu.flappybird.util.Constant.FRAME_WIDTH;
+import static com.kingyu.flappybird.util.Constant.FRAME_X;
+import static com.kingyu.flappybird.util.Constant.FRAME_Y;
+import static com.kingyu.flappybird.util.Constant.GAME_INTERVAL;
+import static com.kingyu.flappybird.util.Constant.GAME_TITLE;
 
 import java.awt.Frame;
 import java.awt.Graphics;
@@ -22,22 +22,22 @@ import java.awt.image.BufferedImage;
  * @author Kingyu
  */
 
-public class GameFrame extends Frame implements Runnable {
+public class Game extends Frame implements Runnable {
     private static final long serialVersionUID = 1L; // 保持版本的兼容性
 
     private static int gameState; // 游戏状态
-    public static final int STATE_READY = 0; // 游戏未开始
-    public static final int STATE_START = 1; // 游戏开始
+    public static final int GAME_READY = 0; // 游戏未开始
+    public static final int GAME_START = 1; // 游戏开始
     public static final int STATE_OVER = 2; // 游戏结束
 
     private GameBackground background; // 游戏背景对象
     private GameForeground foreground; // 游戏前景对象
     private Bird bird; // 小鸟对象
     private GameElementLayer gameElement; // 游戏元素对象
-    private GameReady ready; // 游戏未开始时对象
+    private WelcomeAnimation welcomeAnimation; // 游戏未开始时对象
 
     // 在构造器中初始化
-    public GameFrame() {
+    public Game() {
         initFrame(); // 初始化游戏窗口
         setVisible(true); // 窗口默认为不可见，设置为可见
         initGame(); // 初始化游戏对象
@@ -65,19 +65,19 @@ public class GameFrame extends Frame implements Runnable {
         public void keyPressed(KeyEvent e) {
             int keycode = e.getKeyChar();
             switch (gameState) {
-                case STATE_READY:
+                case GAME_READY:
                     if (keycode == KeyEvent.VK_SPACE) {
                         // 游戏启动界面时按下空格，小鸟振翅一次并开始受重力影响
-                        bird.birdUp();
-                        bird.birdDown();
-                        setGameState(STATE_START); // 游戏状态改变
+                        bird.birdFlap();
+                        bird.birdFall();
+                        setGameState(GAME_START); // 游戏状态改变
                     }
                     break;
-                case STATE_START:
+                case GAME_START:
                     if (keycode == KeyEvent.VK_SPACE) {
                         //游戏过程中按下空格则振翅一次，并持续受重力影响
-                        bird.birdUp();
-                        bird.birdDown();
+                        bird.birdFlap();
+                        bird.birdFall();
                     }
                     break;
                 case STATE_OVER:
@@ -91,7 +91,7 @@ public class GameFrame extends Frame implements Runnable {
 
         // 重新开始游戏
         private void resetGame() {
-            setGameState(STATE_READY);
+            setGameState(GAME_READY);
             gameElement.reset();
             bird.reset();
         }
@@ -113,9 +113,9 @@ public class GameFrame extends Frame implements Runnable {
         background = new GameBackground();
         gameElement = new GameElementLayer();
         foreground = new GameForeground();
-        ready = new GameReady();
+        welcomeAnimation = new WelcomeAnimation();
         bird = new Bird();
-        setGameState(STATE_READY);
+        setGameState(GAME_READY);
 
         // 启动用于刷新窗口的线程
         new Thread(this).start();
@@ -139,8 +139,8 @@ public class GameFrame extends Frame implements Runnable {
         foreground.draw(bufG, bird); // 前景层
 
         // 鸟
-        if (gameState == STATE_READY) { // 游戏未开始
-            ready.draw(bufG);
+        if (gameState == GAME_READY) { // 游戏未开始
+            welcomeAnimation.draw(bufG);
         } else { // 游戏结束
             gameElement.draw(bufG, bird); // 游戏元素层
         }
@@ -148,7 +148,6 @@ public class GameFrame extends Frame implements Runnable {
         g.drawImage(bufImg, 0, 0, null); // 一次性将图片绘制到屏幕上
     }
 
-    // TODO: 不建议在while循环中使用sleep
     @SuppressWarnings("InfiniteLoopStatement")
     @Override
     public void run() {
@@ -162,8 +161,10 @@ public class GameFrame extends Frame implements Runnable {
         }
     }
 
+    public static int getGameState(){ return gameState;};
+
     public static void setGameState(int gameState) {
-        GameFrame.gameState = gameState;
+        Game.gameState = gameState;
     }
 
 }

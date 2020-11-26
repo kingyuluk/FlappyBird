@@ -1,10 +1,8 @@
 # Flappy Bird
-![](https://img.shields.io/badge/JDK-1.8.0-a7742f.svg)
-![](https://img.shields.io/badge/platform-MacOS%20%7C%20Windows-yellow.svg)
-![](https://img.shields.io/github/license/kingyuluk/FlappyBird)
-![](https://img.shields.io/github/v/release/kingyuluk/FlappyBird)
-![](https://img.shields.io/github/repo-size/kingyuluk/FlappyBird?color=ff69b4)
-
+![](https://img.shields.io/badge/jdk-1.8.0-FFB6C1.svg?&logo=github)
+![](https://img.shields.io/github/v/release/kingyuluk/FlappyBird?color=FFB6C1&logo=github)
+![](https://img.shields.io/github/license/kingyuluk/FlappyBird?color=FFB6C1&logo=github)
+![](https://img.shields.io/github/repo-size/kingyuluk/FlappyBird?color=FFB6C1&logo=github)
 
 ## Overview
 
@@ -12,8 +10,10 @@
 
 具备原版所有功能，相较原版加入了移动型水管、优化了难度梯度。
 
+[RL FlappyBird](https://github.com/kingyuluk/RL-FlappyBird)
+基于本项目集成了Amazon的Deep Java Library (DJL)，可以使用强化学习(DQN)训练Flappy Bird
 ## How to play
-直接运行FlappyBird.jar即可开始游戏。
+程序入口：app/GameApp.java
 
 游戏使用空格键操作。
 
@@ -43,11 +43,11 @@
 * 图片与音效资源皆来源于网络，仅供学习交流
 
 ## Package Contents
-* com.bird.app    游戏的入口
+* com.kingyu.flappybird.app    游戏的入口
 
-* com.bird.main   游戏的内容
+* com.kingyu.flappybird.game   游戏的主体
 
-* com.bird.util   自定义的工具
+* com.kingyu.flappybird.util   自定义的工具
 
 ## [Change Log](https://github.com/kingyuluk/FlappyBird/blob/master/CHANGELOG.md)
 

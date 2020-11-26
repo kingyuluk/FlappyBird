@@ -1,8 +1,8 @@
-package com.bird.main;
+package com.kingyu.flappybird.game;
 
 import java.awt.Graphics;
 
-import com.bird.util.Constant;
+import com.kingyu.flappybird.util.Constant;
 
 /**
  * 移动水管类，继承Pipe类

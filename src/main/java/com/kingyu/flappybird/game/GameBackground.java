@@ -1,10 +1,10 @@
-package com.bird.main;
+package com.kingyu.flappybird.game;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import com.bird.util.Constant;
-import com.bird.util.GameUtil;
+import com.kingyu.flappybird.util.Constant;
+import com.kingyu.flappybird.util.GameUtil;
 
 /**
  * 游戏背景类，绘制游戏背景的内容都在此类
@@ -19,14 +19,18 @@ public class GameBackground {
 	private final int speed; // 背景层的速度
 	private int layerX; // 背景层的坐标
 
+	public static final int GROUND_HEIGHT;
+
+	static {
+		BackgroundImg = GameUtil.loadBufferedImage(Constant.BG_IMG_PATH);
+		assert BackgroundImg != null;
+		GROUND_HEIGHT = BackgroundImg.getHeight() / 2;
+	}
+
 	// 在构造器中初始化
 	public GameBackground() {
-		this.speed = 1;
+		this.speed = Constant.GAME_SPEED;
 		this.layerX = 0;
-	}
-	
-	static { //读取背景图片
-		BackgroundImg = GameUtil.loadBufferedImage(Constant.BG_IMG_PATH);
 	}
 
 	// 绘制方法

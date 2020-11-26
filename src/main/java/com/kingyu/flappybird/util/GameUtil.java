@@ -1,4 +1,4 @@
-package com.bird.util;
+package com.kingyu.flappybird.util;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

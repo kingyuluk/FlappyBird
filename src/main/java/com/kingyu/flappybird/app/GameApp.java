@@ -1,6 +1,6 @@
-package com.bird.app;
+package com.kingyu.flappybird.app;
 
-import com.bird.main.GameFrame;
+import com.kingyu.flappybird.game.Game;
 
 /**
  * 程序入口类
@@ -12,6 +12,6 @@ import com.bird.main.GameFrame;
 public class GameApp {
 
 	public static void main(String[] args) {
-		new GameFrame();
+		new Game();
 	}
 }

@@ -1,11 +1,10 @@
-package com.bird.main;
+package com.kingyu.flappybird.game;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import com.bird.util.Constant;
-import com.bird.util.GameUtil;
+import com.kingyu.flappybird.util.Constant;
+import com.kingyu.flappybird.util.GameUtil;
 
 /**
  * 水管类
@@ -43,14 +42,13 @@ public class Pipe {
     public static final int TYPE_HOVER_HARD = 5;
 
     // 水管的速度
-    public static final int SPEED = 1;
     int speed;
 
     Rectangle pipeRect; // 水管的碰撞矩形
 
     // 构造器
     public Pipe() {
-        this.speed = SPEED;
+        this.speed = Constant.GAME_SPEED;
         this.width = PIPE_WIDTH;
 
         pipeRect = new Rectangle();
@@ -183,26 +181,5 @@ public class Pipe {
     public Rectangle getPipeRect() {
         return pipeRect;
     }
-
-    // 各参数的写入与获取
-//  public void setX(int x) {
-//      this.x = x;
-//  }
-//
-//  public void setY(int y) {
-//      this.y = y;
-//  }
-//
-//  public void setType(int type) {
-//      this.type = type;
-//  }
-//
-//  public void setHeight(int height) {
-//      this.height = height;
-//  }
-//
-//  public void setVisible(boolean visible) {
-//      this.visible = visible;
-//  }
 
 }
