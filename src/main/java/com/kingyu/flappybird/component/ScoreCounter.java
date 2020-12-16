@@ -1,4 +1,4 @@
-package com.kingyu.flappybird.game;
+package com.kingyu.flappybird.component;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -10,13 +10,20 @@ import com.kingyu.flappybird.util.Constant;
 import com.kingyu.flappybird.util.MusicUtil;
 
 /**
- * 游戏计时类, 单例类，方便调用
+ * 游戏计时器, 使用静态内部类实现了单例模式
  *
  * @author Kingyu
  *
  */
 public class ScoreCounter {
-	private static final ScoreCounter scoreCounter = new ScoreCounter();
+
+	private static class ScoreCounterHolder {
+		private static final ScoreCounter scoreCounter = new ScoreCounter();
+	}
+
+	public static ScoreCounter getInstance() {
+		return ScoreCounterHolder.scoreCounter;
+	}
 
 	private long score = 0; // 分数
 	private long bestScore; // 最高分数
@@ -28,10 +35,6 @@ public class ScoreCounter {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	public static ScoreCounter getInstance() {
-		return scoreCounter;
 	}
 
 	// 装载最高纪录

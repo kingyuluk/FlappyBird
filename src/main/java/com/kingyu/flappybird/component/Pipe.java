@@ -1,4 +1,4 @@
-package com.kingyu.flappybird.game;
+package com.kingyu.flappybird.component;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -7,7 +7,7 @@ import com.kingyu.flappybird.util.Constant;
 import com.kingyu.flappybird.util.GameUtil;
 
 /**
- * 水管类
+ * 水管类，实现水管的绘制与运动逻辑
  *
  * @author Kingyu
  */
@@ -108,7 +108,7 @@ public class Pipe {
         if (bird.isDead()) {
             return;
         }
-        pipeLogic();
+        movement();
     }
 
     // 绘制从上往下的普通水管
@@ -155,7 +155,7 @@ public class Pipe {
     /**
      * 普通水管的运动逻辑
      */
-    private void pipeLogic() {
+    private void movement() {
         x -= speed;
         pipeRect.x -= speed;
         if (x < -1 * PIPE_HEAD_WIDTH) {// 水管完全离开了窗口

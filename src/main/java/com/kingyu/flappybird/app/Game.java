@@ -1,28 +1,31 @@
-package com.kingyu.flappybird.game;
+package com.kingyu.flappybird.app;
+
+import com.kingyu.flappybird.component.GameElementLayer;
+import com.kingyu.flappybird.component.Bird;
+import com.kingyu.flappybird.component.GameBackground;
+import com.kingyu.flappybird.component.GameForeground;
+import com.kingyu.flappybird.component.WelcomeAnimation;
 
 import static com.kingyu.flappybird.util.Constant.FRAME_HEIGHT;
 import static com.kingyu.flappybird.util.Constant.FRAME_WIDTH;
 import static com.kingyu.flappybird.util.Constant.FRAME_X;
 import static com.kingyu.flappybird.util.Constant.FRAME_Y;
-import static com.kingyu.flappybird.util.Constant.GAME_INTERVAL;
+import static com.kingyu.flappybird.util.Constant.FPS;
 import static com.kingyu.flappybird.util.Constant.GAME_TITLE;
 
 import java.awt.Frame;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
 
 /**
- * 主窗口类，游戏窗口和绘制的相关内容
+ * 游戏主体，管理游戏的组件和窗口绘制
  *
  * @author Kingyu
  */
 
-public class Game extends Frame implements Runnable {
+public class Game extends Frame {
     private static final long serialVersionUID = 1L; // 保持版本的兼容性
 
     private static int gameState; // 游戏状态
@@ -118,7 +121,16 @@ public class Game extends Frame implements Runnable {
         setGameState(GAME_READY);
 
         // 启动用于刷新窗口的线程
-        new Thread(this).start();
+        new Thread(() ->{
+            while (true) {
+                repaint(); // 通过调用repaint(),让JVM调用update()
+                try {
+                    Thread.sleep(FPS);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     // 项目中存在两个线程：系统线程，自定义的线程：调用repaint()。
@@ -134,34 +146,16 @@ public class Game extends Frame implements Runnable {
     public void update(Graphics g) {
         Graphics bufG = bufImg.getGraphics(); // 获得图片画笔
         // 使用图片画笔将需要绘制的内容绘制到图片
-
         background.draw(bufG, bird); // 背景层
         foreground.draw(bufG, bird); // 前景层
-
-        // 鸟
         if (gameState == GAME_READY) { // 游戏未开始
             welcomeAnimation.draw(bufG);
         } else { // 游戏结束
             gameElement.draw(bufG, bird); // 游戏元素层
         }
-        bird.draw(bufG); // 鸟
+        bird.draw(bufG);
         g.drawImage(bufImg, 0, 0, null); // 一次性将图片绘制到屏幕上
     }
-
-    @SuppressWarnings("InfiniteLoopStatement")
-    @Override
-    public void run() {
-        while (true) {
-            repaint(); // 通过调用repaint(),让JVM调用update()
-            try {
-                Thread.sleep(GAME_INTERVAL);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public static int getGameState(){ return gameState;};
 
     public static void setGameState(int gameState) {
         Game.gameState = gameState;

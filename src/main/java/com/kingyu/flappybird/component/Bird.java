@@ -1,16 +1,17 @@
-package com.kingyu.flappybird.game;
+package com.kingyu.flappybird.component;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import com.kingyu.flappybird.app.Game;
 import com.kingyu.flappybird.util.Constant;
 import com.kingyu.flappybird.util.GameUtil;
 import com.kingyu.flappybird.util.MusicUtil;
 
 /**
- * 小鸟类，小鸟的绘制与飞行逻辑都在此类
+ * 小鸟类，实现小鸟的绘制与飞行逻辑
  *
  * @author Kingyu
  */
@@ -20,8 +21,7 @@ public class Bird {
     private final BufferedImage[][] birdImages; // 小鸟的图片数组对象
     private final int x;
     private int y; // 小鸟的坐标
-
-    int wingState; // 翅膀状态
+    private int wingState; // 翅膀状态
 
     // 图片资源
     private BufferedImage image; // 实时的小鸟图片
@@ -34,7 +34,7 @@ public class Bird {
     public static final int BIRD_DEAD_FALL = 3;
     public static final int BIRD_DEAD = 4;
 
-    private final Rectangle birdRect; // 碰撞矩形
+    private final Rectangle birdCollisionRect; // 碰撞矩形
     public static final int RECT_DESCALE = 2; // 补偿碰撞矩形宽高的参数
 
     private final ScoreCounter counter; // 计分器
@@ -67,7 +67,7 @@ public class Bird {
         // 初始化碰撞矩形
         int rectX = x - BIRD_WIDTH / 2;
         int rectY = y - BIRD_HEIGHT / 2;
-        birdRect = new Rectangle(rectX + RECT_DESCALE, rectY + RECT_DESCALE * 2, BIRD_WIDTH - RECT_DESCALE * 3,
+        birdCollisionRect = new Rectangle(rectX + RECT_DESCALE, rectY + RECT_DESCALE * 2, BIRD_WIDTH - RECT_DESCALE * 3,
                 BIRD_WIDTH - RECT_DESCALE * 4); // 碰撞矩形的坐标与小鸟相同
     }
 
@@ -86,7 +86,7 @@ public class Bird {
             gameOverAnimation.draw(g, this);
         else if (state != BIRD_DEAD_FALL)
             drawScore(g);
-        // 绘制矩形
+        // 绘制碰撞矩形
 //      g.setColor(Color.black);
 //      g.drawRect((int) birdRect.getX(), (int) birdRect.getY(), (int) birdRect.getWidth(), (int) birdRect.getHeight());
     }
@@ -94,76 +94,46 @@ public class Bird {
     public static final int ACC_FLAP = 14; // players speed on flapping
     public static final double ACC_Y = 2; // players downward acceleration
     public static final int MAX_VEL_Y = 15; // max vel along Y, max descend speed
-
-
     private int velocity = 0; // bird's velocity along Y, default same as playerFlapped
-
-    private boolean keyFlag = true; // 按键状态，true为已释放，使当按住按键时不会重复调用方法
-
-    public void keyPressed() {
-        keyFlag = false;
-    }
-
-    public void keyReleased() {
-        keyFlag = true;
-    }
-
-    public boolean keyIsReleased() {
-        return keyFlag;
-    }
-
     private final int BOTTOM_BOUNDARY = Constant.FRAME_HEIGHT - GameBackground.GROUND_HEIGHT - (BIRD_HEIGHT / 2);
-    int TOP_BOUNDARY = 30;
 
     // 小鸟的飞行逻辑
     private void movement() {
         // 翅膀状态，实现小鸟振翅飞行
         wingState++;
         image = birdImages[Math.min(state, BIRD_DEAD_FALL)][wingState / 10 % IMG_COUNT];
-
-        switch (state) {
-            case BIRD_FALL:
-                // 自由落体
-                if (velocity < MAX_VEL_Y)
-                    velocity -= ACC_Y;
-                y = Math.min((y - velocity), BOTTOM_BOUNDARY);
-                birdRect.y = birdRect.y - velocity;
-                if (birdRect.y > BOTTOM_BOUNDARY) {
+        if (state == BIRD_FALL || state == BIRD_DEAD_FALL) {
+            freeFall();
+            if (birdCollisionRect.y > BOTTOM_BOUNDARY) {
+                if (state == BIRD_FALL) {
                     MusicUtil.playCrash();
-                    die();
                 }
-                break;
-
-            case BIRD_DEAD_FALL:
-                // 自由落体
-                if (velocity < MAX_VEL_Y)
-                    velocity -= ACC_Y;
-                y = Math.min((y - velocity), BOTTOM_BOUNDARY);
-                birdRect.y = birdRect.y - velocity;
-                if (birdRect.y > BOTTOM_BOUNDARY) {
-                    die();
-                }
-                break;
-
-            case BIRD_DEAD:
-                Game.setGameState(Game.STATE_OVER);
-                break;
-
-            case BIRD_NORMAL:
-            case BIRD_UP:
-                break;
+                die();
+            }
         }
+    }
 
+    private void freeFall() {
+        if (velocity < MAX_VEL_Y)
+            velocity -= ACC_Y;
+        y = Math.min((y - velocity), BOTTOM_BOUNDARY);
+        birdCollisionRect.y = birdCollisionRect.y - velocity;
+    }
+
+    private void die() {
+        counter.saveScore();
+        state = BIRD_DEAD;
+        Game.setGameState(Game.STATE_OVER);
     }
 
     // 小鸟振翅
     public void birdFlap() {
-        if (keyIsReleased()) { // 如果按键已释放
-            if (state == BIRD_DEAD || state == BIRD_UP || state == BIRD_DEAD_FALL)
-                return; // 小鸟死亡或坠落时返回
+        if (keyIsReleased()) {
+            if (isDead())
+                return;
             MusicUtil.playFly(); // 播放音效
             state = BIRD_UP;
-            if (birdRect.y > TOP_BOUNDARY) {
+            if (birdCollisionRect.y > Constant.TOP_BAR_HEIGHT) {
                 velocity = ACC_FLAP; // 每次振翅将速度改为上升速度
                 wingState = 0; // 重置翅膀状态
             }
@@ -173,15 +143,9 @@ public class Bird {
 
     // 小鸟下降
     public void birdFall() {
-        if (state == BIRD_DEAD || state == BIRD_DEAD_FALL)
-            return; // 小鸟死亡或坠落时返回
+        if (isDead())
+            return;
         state = BIRD_FALL;
-    }
-
-    public void die(){
-        counter.saveScore();
-        state = BIRD_DEAD;
-        Game.setGameState(Game.STATE_OVER);
     }
 
     // 小鸟坠落（已死）
@@ -189,12 +153,6 @@ public class Bird {
         state = BIRD_DEAD_FALL;
         MusicUtil.playCrash(); // 播放音效
         velocity = 0;  // 速度置0，防止小鸟继续上升与水管重叠
-        // 死后画面静止片刻
-        try {
-            Thread.sleep(200);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     // 判断小鸟是否死亡
@@ -218,9 +176,23 @@ public class Bird {
         velocity = 0; // 小鸟速度
 
         int ImgHeight = birdImages[state][0].getHeight();
-        birdRect.y = y - ImgHeight / 2 + RECT_DESCALE * 2; // 小鸟碰撞矩形坐标
+        birdCollisionRect.y = y - ImgHeight / 2 + RECT_DESCALE * 2; // 小鸟碰撞矩形坐标
 
         counter.reset(); // 重置计分器
+    }
+
+    private boolean keyFlag = true; // 按键状态，true为已释放，使当按住按键时不会重复调用方法
+
+    public void keyPressed() {
+        keyFlag = false;
+    }
+
+    public void keyReleased() {
+        keyFlag = true;
+    }
+
+    public boolean keyIsReleased() {
+        return keyFlag;
     }
 
     public long getCurrentScore() {
@@ -236,7 +208,7 @@ public class Bird {
     }
 
     // 获取小鸟的碰撞矩形
-    public Rectangle getBirdRect() {
-        return birdRect;
+    public Rectangle getBirdCollisionRect() {
+        return birdCollisionRect;
     }
 }

@@ -1,4 +1,4 @@
-package com.kingyu.flappybird.game;
+package com.kingyu.flappybird.component;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -7,7 +7,7 @@ import com.kingyu.flappybird.util.Constant;
 import com.kingyu.flappybird.util.GameUtil;
 
 /**
- * 游戏背景类，绘制游戏背景的内容都在此类
+ * 游戏背景类，实现游戏背景的绘制
  * 
  * @author Kingyu
  *
@@ -51,11 +51,11 @@ public class GameBackground {
 		if(bird.isDead()) {  //小鸟死亡则不再绘制
 			return;
 		}
-		moveLogic();
+		movement();
 	}
 
 	// 背景层的运动逻辑
-	private void moveLogic() {
+	private void movement() {
 		layerX += speed;
 		if (layerX > BackgroundImg.getWidth())
 			layerX = 0;

@@ -1,4 +1,4 @@
-package com.kingyu.flappybird.game;
+package com.kingyu.flappybird.component;
 
 import com.kingyu.flappybird.util.Constant;
 import com.kingyu.flappybird.util.GameUtil;

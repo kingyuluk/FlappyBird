@@ -1,4 +1,4 @@
-package com.kingyu.flappybird.game;
+package com.kingyu.flappybird.component;
 
 import com.kingyu.flappybird.util.Constant;
 
@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 /**
- * 云朵类
+ * 云朵类，实现云朵的绘制和运动逻辑
  *
  * @author Kingyu
  */

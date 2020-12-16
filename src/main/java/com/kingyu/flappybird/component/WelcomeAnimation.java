@@ -1,4 +1,4 @@
-package com.kingyu.flappybird.game;
+package com.kingyu.flappybird.component;
 
 import com.kingyu.flappybird.util.Constant;
 import com.kingyu.flappybird.util.GameUtil;
@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * 游戏启动界面类
+ * 游戏启动界面
  *
  * @author Kingyu
  *

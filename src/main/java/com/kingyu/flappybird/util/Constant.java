@@ -59,7 +59,7 @@ public class Constant {
 	public static final Color BG_COLOR = new Color(0x4bc4cf);
 
 	// 游戏刷新率
-	public static final int GAME_INTERVAL = 1000 / 30;
+	public static final int FPS = 1000 / 30;
 
 	// 标题栏高度
 	public static final int TOP_BAR_HEIGHT = 20;

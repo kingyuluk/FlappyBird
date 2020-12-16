@@ -12,8 +12,12 @@
 
 [RL FlappyBird](https://github.com/kingyuluk/RL-FlappyBird)
 基于本项目集成了Amazon的Deep Java Library (DJL)，可以使用强化学习(DQN)训练Flappy Bird
+
 ## How to play
-程序入口：app/GameApp.java
+
+* 通过 ```java -jar FlappyBird.jar```直接运行
+
+* 运行源码中的 ```App:main``` 方法
 
 游戏使用空格键操作。
 
@@ -43,11 +47,11 @@
 * 图片与音效资源皆来源于网络，仅供学习交流
 
 ## Package Contents
-* com.kingyu.flappybird.app    游戏的入口
+* com.kingyu.flappybird.app    游戏主体
 
-* com.kingyu.flappybird.game   游戏的主体
+* com.kingyu.flappybird.component   游戏的组件
 
-* com.kingyu.flappybird.util   自定义的工具
+* com.kingyu.flappybird.util   工具包
 
 ## [Change Log](https://github.com/kingyuluk/FlappyBird/blob/master/CHANGELOG.md)
 

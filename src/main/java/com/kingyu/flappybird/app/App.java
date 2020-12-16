@@ -1,16 +1,13 @@
 package com.kingyu.flappybird.app;
 
-import com.kingyu.flappybird.game.Game;
-
 /**
- * 程序入口类
+ * 游戏入口
  * 
  * @author Kingyu
  *
  */
 
-public class GameApp {
-
+public class App {
 	public static void main(String[] args) {
 		new Game();
 	}

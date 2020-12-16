@@ -1,4 +1,4 @@
-package com.kingyu.flappybird.game;
+package com.kingyu.flappybird.component;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import com.kingyu.flappybird.util.Constant;
 import com.kingyu.flappybird.util.GameUtil;
 
 /**
- * 游戏中各种元素层的类
+ * 游戏元素层，目前管理水管的生成逻辑并绘制容器中的水管
  *
  * @author Kingyu
  */
@@ -73,7 +73,8 @@ public class GameElementLayer {
             int currentDistance = lastPipe.getX() - bird.getBirdX() + Bird.BIRD_WIDTH / 2; // 小鸟和最后一根水管的距离
             final int SCORE_DISTANCE = Pipe.PIPE_WIDTH * 2 + HORIZONTAL_INTERVAL; // 小于得分距离则得分
             if (lastPipe.isInFrame()) {
-                if (pipes.size() >= PipePool.FULL_PIPE - 2) {
+                if (pipes.size() >= PipePool.FULL_PIPE - 2
+                        && currentDistance <= SCORE_DISTANCE + Pipe.PIPE_WIDTH * 3 / 2) {
                     ScoreCounter.getInstance().score(bird);
                 }
                 try {
@@ -211,7 +212,7 @@ public class GameElementLayer {
         // 遍历水管容器
         for (Pipe pipe : pipes) {
             // 判断碰撞矩形是否有交集
-            if (pipe.getPipeRect().intersects(bird.getBirdRect())) {
+            if (pipe.getPipeRect().intersects(bird.getBirdCollisionRect())) {
                 bird.deadBirdFall();
                 return;
             }
