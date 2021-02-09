@@ -66,7 +66,7 @@ public class Game extends Frame {
     class BirdKeyListener implements KeyListener {
         // 按键按下，根据游戏当前的状态调用不同的方法
         public void keyPressed(KeyEvent e) {
-            int keycode = e.getKeyChar();
+            int keycode = e.getKeyCode();
             switch (gameState) {
                 case GAME_READY:
                     if (keycode == KeyEvent.VK_SPACE) {
