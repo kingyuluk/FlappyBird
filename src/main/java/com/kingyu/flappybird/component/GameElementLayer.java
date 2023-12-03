@@ -15,10 +15,12 @@ import com.kingyu.flappybird.util.GameUtil;
 
 public class GameElementLayer {
     private final List<Pipe> pipes; // 水管的容器
-
+    private final List<ShrinkPotion> potions; // 缩小药水的容器
+    private int shrinkPotionCounter; // 计数器，用于控制缩小药水的生成
     // 构造器
     public GameElementLayer() {
         pipes = new ArrayList<>();
+        potions = new ArrayList<>();
     }
 
     // 绘制方法
@@ -34,6 +36,8 @@ public class GameElementLayer {
                 i--;
             }
         }
+        // 生成和绘制缩小药水
+        generateAndDrawShrinkPotion(g, bird);
         // 碰撞检测
         isCollideBird(bird);
         pipeBornLogic(bird);
@@ -225,5 +229,39 @@ public class GameElementLayer {
             PipePool.giveBack(pipe);
         }
         pipes.clear();
+    }
+
+    // 生成和绘制缩小药水
+    private void generateAndDrawShrinkPotion(Graphics g, Bird bird) {
+        shrinkPotionCounter++;
+
+        if (shrinkPotionCounter % 10 == 0) { // 每十轮刷新一个缩小药水
+            ShrinkPotion potion = new ShrinkPotion();
+            // 设置缩小药水的位置
+            int x = Constant.FRAME_WIDTH + Constant.FRAME_WIDTH / 2; // 在屏幕外右侧生成
+            int y = GameUtil.getRandomNumber(Constant.FRAME_HEIGHT / 6, Constant.FRAME_HEIGHT * 5 / 6);
+            potion.setAttribute(x, y); // 假设 POTION_HEIGHT 为缩小药水的高度
+            potions.add(potion);
+        }
+
+        // 遍历并绘制缩小药水
+        for (int i = 0; i < potions.size(); i++) {
+            ShrinkPotion potion = potions.get(i);
+            if (potion.isInFrame()) {
+                potion.draw(g);
+                potion.move();
+            } else {
+                potions.remove(i);
+                i--;
+            }
+
+            // 处理碰撞逻辑
+            if (potion.getRect().intersects(bird.getBirdCollisionRect())) {
+                bird.setShrinkEffect(true); // 启用缩小药水效果
+                // 可以根据需要添加其他逻辑，例如播放音效等
+                potions.remove(i);
+                i--;
+            }
+        }
     }
 }

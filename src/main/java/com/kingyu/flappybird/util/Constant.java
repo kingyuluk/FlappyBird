@@ -49,6 +49,7 @@ public class Constant {
 	public static final String SCORE_IMG_PATH = "resources/img/score.png";
 	public static final String OVER_IMG_PATH = "resources/img/over.png";
 	public static final String AGAIN_IMG_PATH = "resources/img/again.png";
+	public static final String SHRINK_POTION_IMG_PATH = "resources/img/ShrinkPotion.png";
 
 	public static final String SCORE_FILE_PATH = "resources/score"; // 分数文件路径
 
@@ -76,5 +77,6 @@ public class Constant {
 
 	public static final Font CURRENT_SCORE_FONT = new Font("华文琥珀", Font.BOLD, 32);// 字体
 	public static final Font SCORE_FONT = new Font("华文琥珀", Font.BOLD, 24);// 字体
+
 
 }
