@@ -33,6 +33,7 @@ public class Bird {
     public static final int BIRD_FALL = 2;
     public static final int BIRD_DEAD_FALL = 3;
     public static final int BIRD_DEAD = 4;
+    private boolean shrinkEffect; // 缩小药水效果标志
 
     private final Rectangle birdCollisionRect; // 碰撞矩形
     public static final int RECT_DESCALE = 2; // 补偿碰撞矩形宽高的参数
@@ -210,5 +211,19 @@ public class Bird {
     // 获取小鸟的碰撞矩形
     public Rectangle getBirdCollisionRect() {
         return birdCollisionRect;
+    }
+
+    // 处理碰撞到缩小药水的逻辑
+    public void handleShrinkEffect() {
+        if (shrinkEffect) {
+            // 处理缩小药水效果，例如减小鸟的面积
+            // ...
+            shrinkEffect = false; // 关闭缩小药水效果
+        }
+    }
+
+    // 设置缩小药水效果
+    public void setShrinkEffect(boolean shrinkEffect) {
+        this.shrinkEffect = shrinkEffect;
     }
 }
