@@ -66,4 +66,19 @@ public class PipePool {
 			}
 		}
 	}
+
+	/**
+	 * 清空池子
+	 */
+	public static void poolReset(){
+		//清空池子并重新填充
+		pool.clear();
+		movingPool.clear();
+		for (int i = 0; i < PipePool.FULL_PIPE; i++) {
+			pool.add(new Pipe());
+		}
+		for (int i = 0; i < PipePool.FULL_PIPE; i++) {
+			movingPool.add(new MovingPipe());
+		}
+	}
 }

@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import com.kingyu.flappybird.util.Constant;
 import com.kingyu.flappybird.util.GameUtil;
+import com.kingyu.flappybird.util.SpeedUtil;
 
 /**
  * 水管类，实现水管的绘制与运动逻辑
@@ -48,7 +49,7 @@ public class Pipe {
 
     // 构造器
     public Pipe() {
-        this.speed = Constant.GAME_SPEED;
+        this.speed = Constant.GAME_SPEED+ SpeedUtil.getInstance().getSpeed();
         this.width = PIPE_WIDTH;
 
         pipeRect = new Rectangle();

@@ -1,10 +1,8 @@
 package com.kingyu.flappybird.app;
 
-import com.kingyu.flappybird.component.GameElementLayer;
-import com.kingyu.flappybird.component.Bird;
-import com.kingyu.flappybird.component.GameBackground;
-import com.kingyu.flappybird.component.GameForeground;
-import com.kingyu.flappybird.component.WelcomeAnimation;
+import com.kingyu.flappybird.component.*;
+import com.kingyu.flappybird.util.SpeedUtil;
+
 
 import static com.kingyu.flappybird.util.Constant.FRAME_HEIGHT;
 import static com.kingyu.flappybird.util.Constant.FRAME_WIDTH;
@@ -74,6 +72,23 @@ public class Game extends Frame {
                         bird.birdFlap();
                         bird.birdFall();
                         setGameState(GAME_START); // 游戏状态改变
+                        gameElement = new GameElementLayer();
+                    }
+                    //在准备阶段可以通过操纵方向上下键来进行speed的调整，上限为9，下限为一
+                    if(keycode == KeyEvent.VK_UP) {
+
+                        if (SpeedUtil.getInstance().getSpeed()<5){
+                            SpeedUtil.getInstance().increaseSpeed();
+                            background = new GameBackground();
+                            PipePool.poolReset();
+                        }
+                    }
+                    if(keycode == KeyEvent.VK_DOWN) {
+                        if (SpeedUtil.getInstance().getSpeed()>-3) {
+                            SpeedUtil.getInstance().decreaseSpeed();
+                            background = new GameBackground();
+                            PipePool.poolReset();
+                        }
                     }
                     break;
                 case GAME_START:

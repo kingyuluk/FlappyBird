@@ -9,6 +9,8 @@ import com.kingyu.flappybird.app.Game;
 import com.kingyu.flappybird.util.Constant;
 import com.kingyu.flappybird.util.GameUtil;
 import com.kingyu.flappybird.util.MusicUtil;
+import com.kingyu.flappybird.util.SpeedUtil;
+
 
 /**
  * 小鸟类，实现小鸟的绘制与飞行逻辑
@@ -165,8 +167,9 @@ public class Bird {
         g.setColor(Color.white);
         g.setFont(Constant.CURRENT_SCORE_FONT);
         String str = Long.toString(counter.getCurrentScore());
-        int x = Constant.FRAME_WIDTH - GameUtil.getStringWidth(Constant.CURRENT_SCORE_FONT, str) >> 1;
-        g.drawString(str, x, Constant.FRAME_HEIGHT / 10);
+        int x = (Constant.FRAME_WIDTH - GameUtil.getStringWidth(Constant.CURRENT_SCORE_FONT, str) >> 1)+80;
+        g.drawString("speed:"+(Constant.GAME_SPEED+SpeedUtil.getInstance().getSpeed()), x, Constant.FRAME_HEIGHT / 10+20);
+        g.drawString("score:"+str, x, Constant.FRAME_HEIGHT / 10+60);
     }
 
     // 重置小鸟

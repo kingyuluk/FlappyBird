@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import com.kingyu.flappybird.util.Constant;
 import com.kingyu.flappybird.util.GameUtil;
+import com.kingyu.flappybird.util.SpeedUtil;
 
 /**
  * 游戏背景类，实现游戏背景的绘制
@@ -29,7 +30,7 @@ public class GameBackground {
 
 	// 在构造器中初始化
 	public GameBackground() {
-		this.speed = Constant.GAME_SPEED;
+		this.speed = Constant.GAME_SPEED+ SpeedUtil.getInstance().getSpeed();
 		this.layerX = 0;
 	}
 
